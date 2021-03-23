@@ -1,12 +1,8 @@
 import React, { memo } from 'react';
-import { Text, View } from 'react-native';
+import AppLoading from 'expo-app-loading';
 
 const App = () => {
-  return (
-    <View>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
-  );
+  return <AppLoading />;
 };
 
 export default memo(App);
