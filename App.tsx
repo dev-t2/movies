@@ -11,7 +11,7 @@ const App = () => {
     const images = cacheImages([]);
     const fonts = cacheFonts([]);
 
-    return Promise.all([...images, ...fonts]);
+    await Promise.all([...images, ...fonts]);
   }, []);
 
   const onFinish = useCallback(() => {
