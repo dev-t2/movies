@@ -5,7 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { StackProps } from '../navigations/Stack';
 
 interface IMovie {
-  navigation: StackNavigationProp<StackProps, 'Tabs'>;
+  navigation: StackNavigationProp<StackProps, 'Movie'>;
 }
 
 const Movie: FC<IMovie> = ({ navigation }) => {

@@ -10,6 +10,10 @@ import { Detail } from '../screens';
 export type StackProps = {
   Tabs: undefined;
   Detail: undefined;
+  Favorites: undefined;
+  Movie: undefined;
+  Search: undefined;
+  Tv: undefined;
 };
 
 const Stack = createStackNavigator<StackProps>();
