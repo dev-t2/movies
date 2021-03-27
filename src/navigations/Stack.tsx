@@ -7,16 +7,7 @@ import {
 import Tabs from './Tabs';
 import { Detail } from '../screens';
 
-export type StackProps = {
-  Tabs: undefined;
-  Detail: undefined;
-  Favorites: undefined;
-  Movie: undefined;
-  Search: undefined;
-  Tv: undefined;
-};
-
-const Stack = createStackNavigator<StackProps>();
+const Stack = createStackNavigator();
 
 const screenOptions: StackNavigationOptions = { headerTitleAlign: 'center' };
 

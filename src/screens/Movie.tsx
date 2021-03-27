@@ -1,14 +1,10 @@
-import React, { FC, memo, useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import { Button, Text, View } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 
-import { StackProps } from '../navigations/Stack';
+const Movie = () => {
+  const navigation = useNavigation();
 
-interface IMovie {
-  navigation: StackNavigationProp<StackProps, 'Movie'>;
-}
-
-const Movie: FC<IMovie> = ({ navigation }) => {
   const onPress = useCallback(() => {
     navigation.navigate('Detail');
   }, [navigation]);

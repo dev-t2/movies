@@ -1,17 +1,25 @@
-import React, { memo } from 'react';
-import { StackNavigationProp } from '@react-navigation/stack';
+import React, { memo, useLayoutEffect } from 'react';
+import {
+  useNavigation,
+  getFocusedRouteNameFromRoute,
+  useRoute,
+} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { StackProps } from './Stack';
 import { Favorites, Movie, Search, Tv } from '../screens';
 
 const Tabs = createBottomTabNavigator();
 
-interface ITabs {
-  navigation: StackNavigationProp<StackProps, 'Tabs'>;
-}
+export default memo(() => {
+  const navigation = useNavigation();
+  const route = useRoute();
 
-export default memo<ITabs>(() => {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: getFocusedRouteNameFromRoute(route) ?? 'Movie',
+    });
+  }, [navigation, route]);
+
   return (
     <Tabs.Navigator>
       <Tabs.Screen name="Movie" component={Movie} />
