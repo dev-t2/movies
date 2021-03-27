@@ -1,19 +1,25 @@
 import React, { memo } from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  StackNavigationOptions,
+} from '@react-navigation/stack';
 
-import { Detail, Home } from '../screens';
+import Tabs from './Tabs';
+import { Detail } from '../screens';
 
 export type StackProps = {
-  Home: undefined;
+  Tabs: undefined;
   Detail: undefined;
 };
 
 const Stack = createStackNavigator<StackProps>();
 
+const screenOptions: StackNavigationOptions = { headerTitleAlign: 'center' };
+
 export default memo(() => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={Home} />
+    <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen name="Tabs" component={Tabs} />
       <Stack.Screen name="Detail" component={Detail} />
     </Stack.Navigator>
   );

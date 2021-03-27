@@ -4,21 +4,21 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { StackProps } from '../navigations/Stack';
 
-interface IHome {
-  navigation: StackNavigationProp<StackProps, 'Home'>;
+interface IMovie {
+  navigation: StackNavigationProp<StackProps, 'Tabs'>;
 }
 
-const Home: FC<IHome> = ({ navigation }) => {
+const Movie: FC<IMovie> = ({ navigation }) => {
   const onPress = useCallback(() => {
     navigation.navigate('Detail');
   }, [navigation]);
 
   return (
     <View>
-      <Text>Home</Text>
-      <Button title="Go to Detail" onPress={onPress} />
+      <Text>Movie</Text>
+      <Button title="Movie" onPress={onPress} />
     </View>
   );
 };
 
-export default memo(Home);
+export default memo(Movie);
