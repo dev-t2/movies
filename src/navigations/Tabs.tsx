@@ -11,14 +11,14 @@ import { Favorites, Movie, Search, Tv } from '../screens';
 const Tabs = createBottomTabNavigator();
 
 export default memo(() => {
-  const navigation = useNavigation();
   const route = useRoute();
+  const navigation = useNavigation();
 
   useLayoutEffect(() => {
-    navigation.setOptions({
-      headerTitle: getFocusedRouteNameFromRoute(route) ?? 'Movie',
-    });
-  }, [navigation, route]);
+    const headerTitle = getFocusedRouteNameFromRoute(route) ?? 'Movie';
+
+    navigation.setOptions({ headerTitle });
+  }, [route, navigation]);
 
   return (
     <Tabs.Navigator>

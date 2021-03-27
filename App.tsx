@@ -1,5 +1,6 @@
 import React, { memo, useCallback, useState } from 'react';
 import AppLoading from 'expo-app-loading';
+import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 
 import Stack from './src/navigations/Stack';
@@ -20,9 +21,13 @@ const App = () => {
   }, []);
 
   return isReady ? (
-    <NavigationContainer>
-      <Stack />
-    </NavigationContainer>
+    <>
+      <StatusBar style="light" />
+
+      <NavigationContainer>
+        <Stack />
+      </NavigationContainer>
+    </>
   ) : (
     <AppLoading
       startAsync={startAsync}

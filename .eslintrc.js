@@ -28,5 +28,6 @@ module.exports = {
     'import/extensions': 0,
     'react/prop-types': 0,
     'object-curly-newline': 0,
+    'react/style-prop-object': 0,
   },
 };

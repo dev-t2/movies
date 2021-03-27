@@ -9,7 +9,13 @@ import { Detail } from '../screens';
 
 const Stack = createStackNavigator();
 
-const screenOptions: StackNavigationOptions = { headerTitleAlign: 'center' };
+const screenOptions: StackNavigationOptions = {
+  headerTitleAlign: 'center',
+  headerStyle: {
+    backgroundColor: 'black',
+  },
+  headerTintColor: 'white',
+};
 
 export default memo(() => {
   return (
