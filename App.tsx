@@ -1,7 +1,8 @@
 import React, { memo, useCallback, useState } from 'react';
-import { Text } from 'react-native';
 import AppLoading from 'expo-app-loading';
+import { NavigationContainer } from '@react-navigation/native';
 
+import Stack from './src/navigations/Stack';
 import { cacheFonts, cacheImages } from './src/lib/cache';
 
 const App = () => {
@@ -19,7 +20,9 @@ const App = () => {
   }, []);
 
   return isReady ? (
-    <Text>Movies</Text>
+    <NavigationContainer>
+      <Stack />
+    </NavigationContainer>
   ) : (
     <AppLoading
       startAsync={startAsync}
