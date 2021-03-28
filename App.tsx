@@ -1,5 +1,6 @@
 import React, { memo, useCallback, useState } from 'react';
 import AppLoading from 'expo-app-loading';
+import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -11,7 +12,7 @@ const App = () => {
 
   const startAsync = useCallback(async () => {
     const images = cacheImages([]);
-    const fonts = cacheFonts([]);
+    const fonts = cacheFonts([Ionicons.font]);
 
     await Promise.all([...images, ...fonts]);
   }, []);

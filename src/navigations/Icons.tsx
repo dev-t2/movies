@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 
 const isApplePlatform = Platform.OS === 'ios' || Platform.OS === 'macos';
 const size = 24;
