@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { cacheFonts, cacheImages } from './src/lib/cache';
-import { Stack } from './src/navigations';
+import Stack from './src/navigations/Stack';
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);

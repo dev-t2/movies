@@ -4,11 +4,23 @@ import {
   getFocusedRouteNameFromRoute,
   useRoute,
 } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  BottomTabBarOptions,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
 
 import { Favorites, Movie, Search, Tv } from '../screens';
+import { favoritesIcon, movieIcon, searchIcon, tvIcon } from './Icons';
 
 const Tabs = createBottomTabNavigator();
+
+const tabBarOptions: BottomTabBarOptions = {
+  style: {
+    backgroundColor: '#000',
+    borderTopWidth: 0,
+  },
+  showLabel: false,
+};
 
 export default memo(() => {
   const route = useRoute();
@@ -21,11 +33,15 @@ export default memo(() => {
   }, [route, navigation]);
 
   return (
-    <Tabs.Navigator>
-      <Tabs.Screen name="Movie" component={Movie} />
-      <Tabs.Screen name="TV" component={Tv} />
-      <Tabs.Screen name="Search" component={Search} />
-      <Tabs.Screen name="Favorites" component={Favorites} />
+    <Tabs.Navigator tabBarOptions={tabBarOptions}>
+      <Tabs.Screen name="Movie" component={Movie} options={movieIcon} />
+      <Tabs.Screen name="TV" component={Tv} options={tvIcon} />
+      <Tabs.Screen name="Search" component={Search} options={searchIcon} />
+      <Tabs.Screen
+        name="Favorites"
+        component={Favorites}
+        options={favoritesIcon}
+      />
     </Tabs.Navigator>
   );
 });
