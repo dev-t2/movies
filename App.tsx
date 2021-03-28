@@ -3,8 +3,8 @@ import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 
-import Stack from './src/navigations/Stack';
 import { cacheFonts, cacheImages } from './src/lib/cache';
+import { Stack } from './src/navigations';
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);
