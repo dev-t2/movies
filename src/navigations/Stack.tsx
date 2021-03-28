@@ -12,9 +12,10 @@ const Stack = createStackNavigator();
 const screenOptions: StackNavigationOptions = {
   headerTitleAlign: 'center',
   headerStyle: {
-    backgroundColor: 'black',
+    backgroundColor: '#000',
+    borderBottomWidth: 0,
   },
-  headerTintColor: 'white',
+  headerTintColor: '#fff',
 };
 
 export default memo(() => {

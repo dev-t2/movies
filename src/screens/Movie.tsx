@@ -10,7 +10,7 @@ const Movie = () => {
   }, [navigation]);
 
   return (
-    <View>
+    <View style={{ flex: 1, backgroundColor: '#000' }}>
       <Text>Movie</Text>
       <Button title="Movie" onPress={onPress} />
     </View>
