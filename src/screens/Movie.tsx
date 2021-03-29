@@ -1,18 +1,36 @@
-import React, { memo, useCallback } from 'react';
-import { Button, Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, { memo, useCallback, useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
+
+import { movieApi } from '../lib/api';
 
 const Movie = () => {
-  const navigation = useNavigation();
+  const [movies, setMovies] = useState({
+    nowPlaying: [],
+    popular: [],
+    upcoming: [],
+    error: null,
+  });
 
-  const onPress = useCallback(() => {
-    navigation.navigate('Detail');
-  }, [navigation]);
+  const getData = useCallback(async () => {
+    const [nowPlaying, nowPlayingError] = await movieApi.nowPlaying();
+    const [popular, popularError] = await movieApi.popular();
+    const [upcoming, upcomingError] = await movieApi.upcoming();
+
+    const error = nowPlayingError || popularError || upcomingError;
+
+    setMovies({ nowPlaying, popular, upcoming, error });
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
 
   return (
     <View style={{ flex: 1, backgroundColor: '#000' }}>
-      <Text>Movie</Text>
-      <Button title="Movie" onPress={onPress} />
+      <Text style={{ color: '#fff' }}>{movies.nowPlaying.length}</Text>
+      <Text style={{ color: '#fff' }}>{movies.popular.length}</Text>
+      <Text style={{ color: '#fff' }}>{movies.upcoming.length}</Text>
+      <Text style={{ color: '#fff' }}>{movies.error}</Text>
     </View>
   );
 };
