@@ -5,6 +5,7 @@ import { movieApi } from '../lib/api';
 
 const Movie = () => {
   const [movie, setMovie] = useState({
+    isReady: false,
     nowPlaying: [],
     popular: [],
     upcoming: [],
@@ -18,7 +19,7 @@ const Movie = () => {
 
     const error = nowPlayingError || popularError || upcomingError;
 
-    setMovie({ nowPlaying, popular, upcoming, error });
+    setMovie({ isReady: true, nowPlaying, popular, upcoming, error });
   }, []);
 
   useEffect(() => {

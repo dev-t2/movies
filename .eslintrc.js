@@ -29,5 +29,6 @@ module.exports = {
     'react/prop-types': 0,
     'object-curly-newline': 0,
     'react/style-prop-object': 0,
+    'no-shadow': 0,
   },
 };
