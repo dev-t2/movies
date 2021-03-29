@@ -34,3 +34,7 @@ export const tvApi = {
   topRated: () => getData('/tv/top_rated'),
   search: (query: string) => getData('/search/tv', { query }),
 };
+
+export const getImageUri = (path: string) => {
+  return `https://image.tmdb.org/t/p/w500${path}`;
+};

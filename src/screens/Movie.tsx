@@ -1,12 +1,44 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { ActivityIndicator, useWindowDimensions } from 'react-native';
+import Swiper from 'react-native-web-swiper';
+import styled from 'styled-components/native';
 
 import { movieApi } from '../lib/api';
+import { Slide } from '../components/movie';
+
+const StyledContainer = styled.View({
+  flex: 1,
+  justifyContent: 'center',
+  backgroundColor: '#000',
+});
+
+interface IStyledSwiper {
+  width: number;
+  height: number;
+}
+
+const StyledSwiperContainer = styled.View<IStyledSwiper>(
+  ({ width, height }) => ({
+    width,
+    height: height / 4,
+  })
+);
 
 const Movie = () => {
-  const [movie, setMovie] = useState({
+  const { width, height } = useWindowDimensions();
+
+  const [movies, setMovies] = useState({
     isReady: false,
-    nowPlaying: [],
+    nowPlaying: [
+      {
+        id: 0,
+        backdrop_path: '',
+        poster_path: '',
+        title: '',
+        vote_average: 0,
+        overview: '',
+      },
+    ],
     popular: [],
     upcoming: [],
     error: null,
@@ -19,7 +51,7 @@ const Movie = () => {
 
     const error = nowPlayingError || popularError || upcomingError;
 
-    setMovie({ isReady: true, nowPlaying, popular, upcoming, error });
+    setMovies({ isReady: true, nowPlaying, popular, upcoming, error });
   }, []);
 
   useEffect(() => {
@@ -27,12 +59,29 @@ const Movie = () => {
   }, [getData]);
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#000' }}>
-      <Text style={{ color: '#fff' }}>{movie.nowPlaying.length}</Text>
-      <Text style={{ color: '#fff' }}>{movie.popular.length}</Text>
-      <Text style={{ color: '#fff' }}>{movie.upcoming.length}</Text>
-      <Text style={{ color: '#fff' }}>{movie.error}</Text>
-    </View>
+    <StyledContainer>
+      {movies.isReady ? (
+        <>
+          <StyledSwiperContainer width={width} height={height}>
+            <Swiper controlsEnabled={false} loop timeout={4}>
+              {movies.nowPlaying.map(movie => (
+                <Slide
+                  key={movie.id}
+                  id={movie.id}
+                  backdropImage={movie.backdrop_path}
+                  poster={movie.poster_path}
+                  title={movie.title}
+                  vote={movie.vote_average}
+                  overview={movie.overview}
+                />
+              ))}
+            </Swiper>
+          </StyledSwiperContainer>
+        </>
+      ) : (
+        <ActivityIndicator color="#fff" size="large" />
+      )}
+    </StyledContainer>
   );
 };
 
