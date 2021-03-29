@@ -1,7 +1,7 @@
 import React, { FC, memo, useMemo } from 'react';
 import styled from 'styled-components/native';
 
-import { Poster } from '../../components';
+import { Poster, Vote } from '../../components';
 import { getImageUri } from '../../lib/api';
 
 const StyledContainer = styled.View(() => ({
@@ -34,8 +34,7 @@ const StyledTitle = styled.Text({
   marginBottom: 4,
 });
 
-const StyledVote = styled.Text({
-  color: '#fff',
+const StyledVoteContainer = styled.View({
   marginBottom: 8,
 });
 
@@ -47,7 +46,7 @@ const StyledOverview = styled.Text({
 
 const StyledPressable = styled.Pressable({
   backgroundColor: '#e35656',
-  padding: '4px 8px',
+  padding: '4px 12px',
   borderRadius: 4,
 });
 
@@ -80,11 +79,15 @@ const Slide: FC<ISlide> = ({
       <StyledBackdropImage source={source} />
 
       <StyledContents>
-        <Poster uri={poster} />
+        <Poster poster={poster} />
 
         <StyledInfo>
           <StyledTitle numberOfLines={1}>{title}</StyledTitle>
-          <StyledVote>⭐ {vote} / 10</StyledVote>
+
+          <StyledVoteContainer>
+            <Vote vote={vote} />
+          </StyledVoteContainer>
+
           <StyledOverview numberOfLines={3}>{overview}</StyledOverview>
 
           <StyledPressable>

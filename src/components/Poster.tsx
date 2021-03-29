@@ -10,11 +10,11 @@ const StyledImage = styled.Image({
 });
 
 interface IPoster {
-  uri: string;
+  poster: string;
 }
 
-const Poster: FC<IPoster> = ({ uri }) => {
-  const source = useMemo(() => ({ uri: getImageUri(uri) }), [uri]);
+const Poster: FC<IPoster> = ({ poster }) => {
+  const source = useMemo(() => ({ uri: getImageUri(poster) }), [poster]);
 
   return <StyledImage source={source} resizeMode="contain" />;
 };

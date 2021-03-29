@@ -1,14 +1,19 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, useWindowDimensions } from 'react-native';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  ActivityIndicator,
+  StyleProp,
+  useWindowDimensions,
+  ViewStyle,
+} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import Swiper from 'react-native-web-swiper';
 import styled from 'styled-components/native';
 
 import { movieApi } from '../lib/api';
+import { Title, Vertical } from '../components';
 import { Slide } from '../components/movie';
 
-const StyledContainer = styled.View({
-  flex: 1,
-  justifyContent: 'center',
+const StyledScrollView = styled.ScrollView({
   backgroundColor: '#000',
 });
 
@@ -21,6 +26,7 @@ const StyledSwiperContainer = styled.View<IStyledSwiper>(
   ({ width, height }) => ({
     width,
     height: height / 4,
+    marginBottom: 32,
   })
 );
 
@@ -39,10 +45,25 @@ const Movie = () => {
         overview: '',
       },
     ],
-    popular: [],
+    popular: [
+      {
+        id: 0,
+        poster_path: '',
+        title: '',
+        vote_average: 0,
+      },
+    ],
     upcoming: [],
     error: null,
   });
+
+  const contentContainerStyle: StyleProp<ViewStyle> = useMemo(
+    () => ({
+      flex: 1,
+      justifyContent: movies.isReady ? 'flex-start' : 'center',
+    }),
+    [movies.isReady]
+  );
 
   const getData = useCallback(async () => {
     const [nowPlaying, nowPlayingError] = await movieApi.nowPlaying();
@@ -59,7 +80,7 @@ const Movie = () => {
   }, [getData]);
 
   return (
-    <StyledContainer>
+    <StyledScrollView contentContainerStyle={contentContainerStyle}>
       {movies.isReady ? (
         <>
           <StyledSwiperContainer width={width} height={height}>
@@ -77,11 +98,24 @@ const Movie = () => {
               ))}
             </Swiper>
           </StyledSwiperContainer>
+
+          <Title title="Popular Movies" />
+
+          <ScrollView horizontal>
+            {movies.popular.map(movie => (
+              <Vertical
+                key={movie.id}
+                poster={movie.poster_path}
+                title={movie.title}
+                vote={movie.vote_average}
+              />
+            ))}
+          </ScrollView>
         </>
       ) : (
         <ActivityIndicator color="#fff" size="large" />
       )}
-    </StyledContainer>
+    </StyledScrollView>
   );
 };
 
