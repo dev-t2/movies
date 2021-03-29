@@ -4,7 +4,7 @@ import { Text, View } from 'react-native';
 import { movieApi } from '../lib/api';
 
 const Movie = () => {
-  const [movies, setMovies] = useState({
+  const [movie, setMovie] = useState({
     nowPlaying: [],
     popular: [],
     upcoming: [],
@@ -18,7 +18,7 @@ const Movie = () => {
 
     const error = nowPlayingError || popularError || upcomingError;
 
-    setMovies({ nowPlaying, popular, upcoming, error });
+    setMovie({ nowPlaying, popular, upcoming, error });
   }, []);
 
   useEffect(() => {
@@ -27,10 +27,10 @@ const Movie = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#000' }}>
-      <Text style={{ color: '#fff' }}>{movies.nowPlaying.length}</Text>
-      <Text style={{ color: '#fff' }}>{movies.popular.length}</Text>
-      <Text style={{ color: '#fff' }}>{movies.upcoming.length}</Text>
-      <Text style={{ color: '#fff' }}>{movies.error}</Text>
+      <Text style={{ color: '#fff' }}>{movie.nowPlaying.length}</Text>
+      <Text style={{ color: '#fff' }}>{movie.popular.length}</Text>
+      <Text style={{ color: '#fff' }}>{movie.upcoming.length}</Text>
+      <Text style={{ color: '#fff' }}>{movie.error}</Text>
     </View>
   );
 };

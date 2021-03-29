@@ -42,7 +42,7 @@ export const searchIcon: BottomTabNavigationOptions = {
   },
 };
 
-export const favoritesIcon: BottomTabNavigationOptions = {
+export const discoveryIcon: BottomTabNavigationOptions = {
   tabBarIcon: ({ focused }) => {
     return (
       <Ionicons
