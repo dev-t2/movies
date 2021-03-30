@@ -26,9 +26,13 @@ const StyledSwiperContainer = styled.View<IStyledSwiper>(
   ({ width, height }) => ({
     width,
     height: height / 4,
-    marginBottom: 32,
+    marginBottom: 24,
   })
 );
+
+const StyledTitleContainer = styled.View({
+  marginBottom: 8,
+});
 
 const Movie = () => {
   const { width, height } = useWindowDimensions();
@@ -57,7 +61,7 @@ const Movie = () => {
     error: null,
   });
 
-  const contentContainerStyle: StyleProp<ViewStyle> = useMemo(
+  const verticalScrollViewStyle: StyleProp<ViewStyle> = useMemo(
     () => ({
       flex: 1,
       justifyContent: movies.isReady ? 'flex-start' : 'center',
@@ -80,7 +84,7 @@ const Movie = () => {
   }, [getData]);
 
   return (
-    <StyledScrollView contentContainerStyle={contentContainerStyle}>
+    <StyledScrollView contentContainerStyle={verticalScrollViewStyle}>
       {movies.isReady ? (
         <>
           <StyledSwiperContainer width={width} height={height}>
@@ -99,9 +103,11 @@ const Movie = () => {
             </Swiper>
           </StyledSwiperContainer>
 
-          <Title title="Popular Movies" />
+          <StyledTitleContainer>
+            <Title title="Popular Movies" />
+          </StyledTitleContainer>
 
-          <ScrollView horizontal>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {movies.popular.map(movie => (
               <Vertical
                 key={movie.id}

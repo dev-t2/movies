@@ -4,8 +4,7 @@ import styled from 'styled-components/native';
 import { getImageUri } from '../lib/api';
 
 const StyledImage = styled.Image({
-  width: '28%',
-  height: '88%',
+  flex: 1,
   borderRadius: 4,
 });
 

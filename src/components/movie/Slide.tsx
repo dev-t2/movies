@@ -22,6 +22,11 @@ const StyledContents = styled.View({
   alignItems: 'center',
 });
 
+const StyledPosterContainer = styled.View({
+  width: '28%',
+  height: '92%',
+});
+
 const StyledInfo = styled.View({
   width: '50%',
   alignItems: 'flex-start',
@@ -79,7 +84,9 @@ const Slide: FC<ISlide> = ({
       <StyledBackdropImage source={source} />
 
       <StyledContents>
-        <Poster poster={poster} />
+        <StyledPosterContainer>
+          <Poster poster={poster} />
+        </StyledPosterContainer>
 
         <StyledInfo>
           <StyledTitle numberOfLines={1}>{title}</StyledTitle>

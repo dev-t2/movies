@@ -5,7 +5,7 @@ const StyledTitle = styled.Text({
   color: '#fff',
   fontWeight: 'bold',
   fontSize: 16,
-  marginLeft: 32,
+  marginLeft: 16,
 });
 
 interface ITitle {
