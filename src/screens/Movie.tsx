@@ -5,7 +5,6 @@ import {
   useWindowDimensions,
   ViewStyle,
 } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 import Swiper from 'react-native-web-swiper';
 import styled from 'styled-components/native';
 
@@ -17,21 +16,28 @@ const StyledScrollView = styled.ScrollView({
   backgroundColor: '#000',
 });
 
-interface IStyledSwiper {
+interface IWindow {
   width: number;
   height: number;
 }
 
-const StyledSwiperContainer = styled.View<IStyledSwiper>(
-  ({ width, height }) => ({
-    width,
-    height: height / 4,
-    marginBottom: 24,
-  })
-);
+const StyledSwiperContainer = styled.View<IWindow>(({ width, height }) => ({
+  width,
+  height: height / 4,
+  marginBottom: 24,
+}));
 
 const StyledTitleContainer = styled.View({
   marginBottom: 8,
+});
+
+const StyledVerticalContainer = styled.View<IWindow>(({ width, height }) => ({
+  width,
+  height: height / 4,
+}));
+
+const StyledVertical = styled.ScrollView({
+  marginLeft: 16,
 });
 
 const Movie = () => {
@@ -107,16 +113,18 @@ const Movie = () => {
             <Title title="Popular Movies" />
           </StyledTitleContainer>
 
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {movies.popular.map(movie => (
-              <Vertical
-                key={movie.id}
-                poster={movie.poster_path}
-                title={movie.title}
-                vote={movie.vote_average}
-              />
-            ))}
-          </ScrollView>
+          <StyledVerticalContainer width={width} height={height}>
+            <StyledVertical horizontal showsHorizontalScrollIndicator={false}>
+              {movies.popular.map(movie => (
+                <Vertical
+                  key={movie.id}
+                  poster={movie.poster_path}
+                  title={movie.title}
+                  vote={movie.vote_average}
+                />
+              ))}
+            </StyledVertical>
+          </StyledVerticalContainer>
         </>
       ) : (
         <ActivityIndicator color="#fff" size="large" />

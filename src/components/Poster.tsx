@@ -15,7 +15,7 @@ interface IPoster {
 const Poster: FC<IPoster> = ({ poster }) => {
   const source = useMemo(() => ({ uri: getImageUri(poster) }), [poster]);
 
-  return <StyledImage source={source} resizeMode="contain" />;
+  return <StyledImage source={source} />;
 };
 
 export default memo(Poster);

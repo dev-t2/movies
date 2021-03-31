@@ -7,13 +7,11 @@ import Vote from './Vote';
 
 interface IStyledContainer {
   width: number;
-  height: number;
 }
 
-const StyledContainer = styled.View<IStyledContainer>(({ width, height }) => ({
+const StyledContainer = styled.View<IStyledContainer>(({ width }) => ({
   width: width / 4,
-  height: height / 4,
-  marginLeft: 16,
+  marginRight: 8,
 }));
 
 const StyledPosterContainer = styled.View({
@@ -41,10 +39,10 @@ interface IVertical {
 }
 
 const Vertical: FC<IVertical> = ({ poster, title, vote }) => {
-  const { width, height } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   return (
-    <StyledContainer width={width} height={height}>
+    <StyledContainer width={width}>
       <StyledPosterContainer>
         <Poster poster={poster} />
       </StyledPosterContainer>
