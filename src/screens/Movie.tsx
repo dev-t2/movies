@@ -9,7 +9,7 @@ import Swiper from 'react-native-web-swiper';
 import styled from 'styled-components/native';
 
 import { movieApi } from '../lib/api';
-import { Title, Vertical } from '../components';
+import { Horizontal, Title, Vertical } from '../components';
 import { Slide } from '../components/movie';
 
 const StyledScrollView = styled.ScrollView({
@@ -17,31 +17,33 @@ const StyledScrollView = styled.ScrollView({
 });
 
 interface IWindow {
-  width: number;
   height: number;
 }
 
-const StyledSwiperContainer = styled.View<IWindow>(({ width, height }) => ({
-  width,
+const StyledSwiperContainer = styled.View<IWindow>(({ height }) => ({
+  width: '100%',
   height: height / 4,
-  marginBottom: 24,
+  marginBottom: 32,
 }));
 
 const StyledTitleContainer = styled.View({
-  marginBottom: 8,
+  marginBottom: 16,
 });
 
-const StyledVerticalContainer = styled.View<IWindow>(({ width, height }) => ({
-  width,
+const StyledVerticalContainer = styled.View<IWindow>(({ height }) => ({
+  width: '100%',
   height: height / 4,
+  marginBottom: 32,
 }));
 
 const StyledVertical = styled.ScrollView({
   marginLeft: 16,
 });
 
+const StyledUpComingContainer = styled.View({});
+
 const Movie = () => {
-  const { width, height } = useWindowDimensions();
+  const { height } = useWindowDimensions();
 
   const [movies, setMovies] = useState({
     isReady: false,
@@ -63,13 +65,21 @@ const Movie = () => {
         vote_average: 0,
       },
     ],
-    upcoming: [],
+    upcoming: [
+      {
+        id: 0,
+        poster_path: '',
+        title: '',
+        release_date: '',
+        overview: '',
+      },
+    ],
     error: null,
   });
 
   const verticalScrollViewStyle: StyleProp<ViewStyle> = useMemo(
     () => ({
-      flex: 1,
+      flex: movies.isReady ? undefined : 1,
       justifyContent: movies.isReady ? 'flex-start' : 'center',
     }),
     [movies.isReady]
@@ -93,7 +103,7 @@ const Movie = () => {
     <StyledScrollView contentContainerStyle={verticalScrollViewStyle}>
       {movies.isReady ? (
         <>
-          <StyledSwiperContainer width={width} height={height}>
+          <StyledSwiperContainer height={height}>
             <Swiper controlsEnabled={false} loop timeout={4}>
               {movies.nowPlaying.map(movie => (
                 <Slide
@@ -113,7 +123,7 @@ const Movie = () => {
             <Title title="Popular Movies" />
           </StyledTitleContainer>
 
-          <StyledVerticalContainer width={width} height={height}>
+          <StyledVerticalContainer height={height}>
             <StyledVertical horizontal showsHorizontalScrollIndicator={false}>
               {movies.popular.map(movie => (
                 <Vertical
@@ -125,6 +135,23 @@ const Movie = () => {
               ))}
             </StyledVertical>
           </StyledVerticalContainer>
+
+          <StyledTitleContainer>
+            <Title title="Upcoming Movies" />
+          </StyledTitleContainer>
+
+          <StyledUpComingContainer>
+            {movies.upcoming.map(movie => (
+              <Horizontal
+                key={movie.id}
+                id={movie.id}
+                poster={movie.poster_path}
+                title={movie.title}
+                releaseDate={movie.release_date}
+                overview={movie.overview}
+              />
+            ))}
+          </StyledUpComingContainer>
         </>
       ) : (
         <ActivityIndicator color="#fff" size="large" />

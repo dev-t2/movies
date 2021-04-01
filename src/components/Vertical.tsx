@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { useWindowDimensions } from 'react-native';
+import { Pressable, useWindowDimensions } from 'react-native';
 import styled from 'styled-components/native';
 
 import Poster from './Poster';
@@ -11,6 +11,7 @@ interface IStyledContainer {
 
 const StyledContainer = styled.View<IStyledContainer>(({ width }) => ({
   width: width / 4,
+  height: '100%',
   marginRight: 8,
 }));
 
@@ -42,19 +43,21 @@ const Vertical: FC<IVertical> = ({ poster, title, vote }) => {
   const { width } = useWindowDimensions();
 
   return (
-    <StyledContainer width={width}>
-      <StyledPosterContainer>
-        <Poster poster={poster} />
-      </StyledPosterContainer>
+    <Pressable>
+      <StyledContainer width={width}>
+        <StyledPosterContainer>
+          <Poster poster={poster} />
+        </StyledPosterContainer>
 
-      <StyledTextContainer>
-        <StyledTitle numberOfLines={1}>{title}</StyledTitle>
-      </StyledTextContainer>
+        <StyledTextContainer>
+          <StyledTitle numberOfLines={1}>{title}</StyledTitle>
+        </StyledTextContainer>
 
-      <StyledVoteContainer>
-        <Vote vote={vote} />
-      </StyledVoteContainer>
-    </StyledContainer>
+        <StyledVoteContainer>
+          <Vote vote={vote} />
+        </StyledVoteContainer>
+      </StyledContainer>
+    </Pressable>
   );
 };
 

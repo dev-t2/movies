@@ -15,6 +15,9 @@ const screenOptions: StackNavigationOptions = {
     backgroundColor: '#000',
     borderBottomWidth: 0,
   },
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
   headerTintColor: '#fff',
 };
 
