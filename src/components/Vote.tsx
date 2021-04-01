@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 const StyledText = styled.Text({
   color: '#fff',
   fontWeight: 'bold',
+  fontSize: 12,
 });
 
 interface IVote {

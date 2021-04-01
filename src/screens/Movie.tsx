@@ -40,8 +40,6 @@ const StyledVertical = styled.ScrollView({
   marginLeft: 16,
 });
 
-const StyledUpComingContainer = styled.View({});
-
 const Movie = () => {
   const { height } = useWindowDimensions();
 
@@ -140,18 +138,16 @@ const Movie = () => {
             <Title title="Upcoming Movies" />
           </StyledTitleContainer>
 
-          <StyledUpComingContainer>
-            {movies.upcoming.map(movie => (
-              <Horizontal
-                key={movie.id}
-                id={movie.id}
-                poster={movie.poster_path}
-                title={movie.title}
-                releaseDate={movie.release_date}
-                overview={movie.overview}
-              />
-            ))}
-          </StyledUpComingContainer>
+          {movies.upcoming.map(movie => (
+            <Horizontal
+              key={movie.id}
+              id={movie.id}
+              poster={movie.poster_path}
+              title={movie.title}
+              releaseDate={movie.release_date}
+              overview={movie.overview}
+            />
+          ))}
         </>
       ) : (
         <ActivityIndicator color="#fff" size="large" />

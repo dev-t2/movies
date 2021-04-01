@@ -36,7 +36,6 @@ const StyledTitle = styled.Text({
   color: '#fff',
   fontWeight: 'bold',
   fontSize: 20,
-  marginBottom: 4,
 });
 
 const StyledVoteContainer = styled.View({
@@ -95,7 +94,7 @@ const Slide: FC<ISlide> = ({
             <Vote vote={vote} />
           </StyledVoteContainer>
 
-          <StyledOverview numberOfLines={3}>{overview}</StyledOverview>
+          <StyledOverview numberOfLines={4}>{overview}</StyledOverview>
 
           <StyledPressable>
             <StyledButtonText>더보기</StyledButtonText>

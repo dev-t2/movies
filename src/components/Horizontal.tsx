@@ -12,7 +12,6 @@ const StyledContainer = styled.View<IStyledContainer>(({ height }) => ({
   width: '100%',
   height: height / 5,
   flexDirection: 'row',
-  alignItems: 'center',
   marginLeft: 16,
   marginBottom: 16,
 }));
@@ -36,7 +35,6 @@ const StyledTitle = styled.Text({
   color: '#fff',
   fontWeight: 'bold',
   fontSize: 16,
-  marginBottom: 8,
 });
 
 const StyledReleaseDate = styled.Text({
@@ -75,7 +73,7 @@ const Horizontal: FC<IHorizontal> = ({
         <StyledInfoContainer>
           <StyledTitle numberOfLines={1}>{title}</StyledTitle>
           {releaseDate && <StyledReleaseDate>{releaseDate}</StyledReleaseDate>}
-          <StyledOverview numberOfLines={4}>{overview}</StyledOverview>
+          <StyledOverview numberOfLines={5}>{overview}</StyledOverview>
         </StyledInfoContainer>
       </StyledContainer>
     </Pressable>
