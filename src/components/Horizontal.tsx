@@ -3,6 +3,7 @@ import { Pressable, useWindowDimensions } from 'react-native';
 import styled from 'styled-components/native';
 
 import Poster from './Poster';
+import Vote from './Vote';
 
 interface IStyledContainer {
   height: number;
@@ -37,9 +38,7 @@ const StyledTitle = styled.Text({
   fontSize: 16,
 });
 
-const StyledReleaseDate = styled.Text({
-  color: '#fff',
-  fontSize: 12,
+const StyledVoteContainer = styled.View({
   marginBottom: 8,
 });
 
@@ -51,16 +50,11 @@ interface IHorizontal {
   id: number;
   poster: string;
   title: string;
-  releaseDate?: string;
+  vote: number;
   overview: string;
 }
 
-const Horizontal: FC<IHorizontal> = ({
-  poster,
-  title,
-  releaseDate,
-  overview,
-}) => {
+const Horizontal: FC<IHorizontal> = ({ poster, title, vote, overview }) => {
   const { width, height } = useWindowDimensions();
 
   return (
@@ -72,7 +66,11 @@ const Horizontal: FC<IHorizontal> = ({
 
         <StyledInfoContainer>
           <StyledTitle numberOfLines={1}>{title}</StyledTitle>
-          {releaseDate && <StyledReleaseDate>{releaseDate}</StyledReleaseDate>}
+
+          <StyledVoteContainer>
+            <Vote vote={vote} />
+          </StyledVoteContainer>
+
           <StyledOverview numberOfLines={5}>{overview}</StyledOverview>
         </StyledInfoContainer>
       </StyledContainer>

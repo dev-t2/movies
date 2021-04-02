@@ -1,9 +1,9 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useMemo } from 'react';
 import { Pressable, useWindowDimensions } from 'react-native';
 import styled from 'styled-components/native';
+import { formatDate } from '../lib/date';
 
 import Poster from './Poster';
-import Vote from './Vote';
 
 interface IStyledContainer {
   width: number;
@@ -29,18 +29,22 @@ const StyledTitle = styled.Text({
   fontWeight: 'bold',
 });
 
-const StyledVoteContainer = styled.View({
-  alignItems: 'center',
+const StyledReleaseDate = styled.Text({
+  color: '#fff',
+  fontSize: 10,
+  marginBottom: 8,
 });
 
 interface IVertical {
   poster: string;
   title: string;
-  vote: number;
+  releaseDate: string;
 }
 
-const Vertical: FC<IVertical> = ({ poster, title, vote }) => {
+const Vertical: FC<IVertical> = ({ poster, title, releaseDate }) => {
   const { width } = useWindowDimensions();
+
+  const formattedDate = useMemo(() => formatDate(releaseDate), [releaseDate]);
 
   return (
     <Pressable>
@@ -53,9 +57,9 @@ const Vertical: FC<IVertical> = ({ poster, title, vote }) => {
           <StyledTitle numberOfLines={1}>{title}</StyledTitle>
         </StyledTextContainer>
 
-        <StyledVoteContainer>
-          <Vote vote={vote} />
-        </StyledVoteContainer>
+        <StyledTextContainer>
+          <StyledReleaseDate>{formattedDate}</StyledReleaseDate>
+        </StyledTextContainer>
       </StyledContainer>
     </Pressable>
   );

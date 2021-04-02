@@ -55,20 +55,20 @@ const Movie = () => {
         overview: '',
       },
     ],
-    popular: [
-      {
-        id: 0,
-        poster_path: '',
-        title: '',
-        vote_average: 0,
-      },
-    ],
     upcoming: [
       {
         id: 0,
         poster_path: '',
         title: '',
         release_date: '',
+      },
+    ],
+    popular: [
+      {
+        id: 0,
+        poster_path: '',
+        title: '',
+        vote_average: 0,
         overview: '',
       },
     ],
@@ -118,33 +118,33 @@ const Movie = () => {
           </StyledSwiperContainer>
 
           <StyledTitleContainer>
-            <Title title="Popular Movies" />
+            <Title title="Upcoming Movies" />
           </StyledTitleContainer>
 
           <StyledVerticalContainer height={height}>
             <StyledVertical horizontal showsHorizontalScrollIndicator={false}>
-              {movies.popular.map(movie => (
+              {movies.upcoming.map(movie => (
                 <Vertical
                   key={movie.id}
                   poster={movie.poster_path}
                   title={movie.title}
-                  vote={movie.vote_average}
+                  releaseDate={movie.release_date}
                 />
               ))}
             </StyledVertical>
           </StyledVerticalContainer>
 
           <StyledTitleContainer>
-            <Title title="Upcoming Movies" />
+            <Title title="Popular Movies" />
           </StyledTitleContainer>
 
-          {movies.upcoming.map(movie => (
+          {movies.popular.map(movie => (
             <Horizontal
               key={movie.id}
               id={movie.id}
               poster={movie.poster_path}
               title={movie.title}
-              releaseDate={movie.release_date}
+              vote={movie.vote_average}
               overview={movie.overview}
             />
           ))}
