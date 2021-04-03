@@ -26,15 +26,6 @@ export const movieApi = {
   search: (query: string) => getData('/search/movie', { query }),
 };
 
-export const tvApi = {
-  details: (tvId: number) => getData(`/tv/${tvId}`),
-  today: () => getData('/tv/airing_today'),
-  thisWeek: () => getData('/tv/on_the_air'),
-  popular: () => getData('/tv/popular'),
-  topRated: () => getData('/tv/top_rated'),
-  search: (query: string) => getData('/search/tv', { query }),
-};
-
 export const getImageUri = (path: string) => {
   return `https://image.tmdb.org/t/p/w500${path}`;
 };

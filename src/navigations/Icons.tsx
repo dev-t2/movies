@@ -18,18 +18,6 @@ export const movieIcon: BottomTabNavigationOptions = {
   },
 };
 
-export const tvIcon: BottomTabNavigationOptions = {
-  tabBarIcon: ({ focused }) => {
-    return (
-      <Ionicons
-        name={IS_APPLE_PLATFORM ? 'ios-tv' : 'md-tv'}
-        color={focused ? '#fff' : '#808080'}
-        size={SIZE}
-      />
-    );
-  },
-};
-
 export const searchIcon: BottomTabNavigationOptions = {
   tabBarIcon: ({ focused }) => {
     return (

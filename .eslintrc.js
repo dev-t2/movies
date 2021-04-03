@@ -30,8 +30,8 @@ module.exports = {
     'object-curly-newline': 0,
     'react/style-prop-object': 0,
     'no-shadow': 0,
-    camelcase: 0,
     'comma-dangle': 0,
     'react/jsx-one-expression-per-line': 0,
+    camelcase: 0,
   },
 };

@@ -9,8 +9,8 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 
-import { Discovery, Movie, Search, Tv } from '../screens';
-import { discoveryIcon, movieIcon, searchIcon, tvIcon } from './Icons';
+import { Discovery, Movie, Search } from '../screens';
+import { discoveryIcon, movieIcon, searchIcon } from './Icons';
 
 const Tabs = createBottomTabNavigator();
 
@@ -35,7 +35,6 @@ export default memo(() => {
   return (
     <Tabs.Navigator tabBarOptions={tabBarOptions}>
       <Tabs.Screen name="Movie" component={Movie} options={movieIcon} />
-      <Tabs.Screen name="TV" component={Tv} options={tvIcon} />
       <Tabs.Screen name="Search" component={Search} options={searchIcon} />
       <Tabs.Screen
         name="Discovery"
