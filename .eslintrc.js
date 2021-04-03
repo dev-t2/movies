@@ -32,6 +32,8 @@ module.exports = {
     'no-shadow': 0,
     'comma-dangle': 0,
     'react/jsx-one-expression-per-line': 0,
+    'no-unused-vars': 0,
+    'operator-linebreak': 0,
     camelcase: 0,
   },
 };

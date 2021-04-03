@@ -6,12 +6,13 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import { cacheFonts, cacheImages } from './src/lib/cache';
 import Stack from './src/navigations/Stack';
+import { defaultImage } from './src/lib/image';
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);
 
   const startAsync = useCallback(async () => {
-    const images = cacheImages([]);
+    const images = cacheImages([defaultImage]);
     const fonts = cacheFonts([Ionicons.font]);
 
     await Promise.all([...images, ...fonts]);

@@ -1,8 +1,8 @@
 import React, { FC, memo, useMemo } from 'react';
 import { Pressable, useWindowDimensions } from 'react-native';
 import styled from 'styled-components/native';
-import { formatDate } from '../lib/date';
 
+import { formatDate } from '../lib/date';
 import Poster from './Poster';
 
 interface IStyledContainer {
@@ -36,6 +36,7 @@ const StyledReleaseDate = styled.Text({
 });
 
 interface IVertical {
+  id: number;
   poster: string;
   title: string;
   releaseDate: string;

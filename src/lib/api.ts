@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import API_KEY from './apiKey';
+import { defaultImage } from './image';
 
 const getData = async (path: string, params?: {}) => {
   try {
@@ -8,7 +9,12 @@ const getData = async (path: string, params?: {}) => {
       data: { results },
       data,
     } = await axios.get(`https://api.themoviedb.org/3${path}`, {
-      params: { api_key: API_KEY, language: 'ko-KR', region: 'kr', ...params },
+      params: {
+        api_key: API_KEY,
+        language: 'ko-KR',
+        region: 'kr',
+        ...params,
+      },
     });
 
     return [results ?? data, null];
@@ -26,6 +32,6 @@ export const movieApi = {
   search: (query: string) => getData('/search/movie', { query }),
 };
 
-export const getImageUri = (path: string) => {
-  return `https://image.tmdb.org/t/p/w500${path}`;
+export const getImageUri = (path?: string) => {
+  return path ? `https://image.tmdb.org/t/p/w500${path}` : defaultImage;
 };

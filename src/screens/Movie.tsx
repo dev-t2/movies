@@ -78,6 +78,7 @@ const Movie = () => {
         {movies.upcoming.map(movie => (
           <Vertical
             key={movie.id}
+            id={movie.id}
             poster={movie.poster_path}
             title={movie.title}
             releaseDate={movie.release_date}
