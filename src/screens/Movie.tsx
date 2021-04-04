@@ -59,7 +59,7 @@ const Movie = () => {
   }, [getData]);
 
   return (
-    <ScrollViewContainer isReady={movies.isReady}>
+    <ScrollViewContainer isReady={movies.isReady} refreshFunction={getData}>
       <HorizontalSwiper>
         {movies.nowPlaying.map(movie => (
           <Slide

@@ -1,5 +1,17 @@
-import React, { FC, memo, ReactNode, useMemo } from 'react';
-import { ActivityIndicator, StyleProp, ViewStyle } from 'react-native';
+import React, {
+  FC,
+  memo,
+  ReactNode,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react';
+import {
+  ActivityIndicator,
+  RefreshControl,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 import styled from 'styled-components/native';
 
 const StyledScrollView = styled.ScrollView({
@@ -8,13 +20,17 @@ const StyledScrollView = styled.ScrollView({
 
 interface IScrollViewContainer {
   children: ReactNode;
-  isReady: boolean;
+  isReady?: boolean;
+  refreshFunction: () => void;
 }
 
 const ScrollViewContainer: FC<IScrollViewContainer> = ({
   children,
-  isReady,
+  isReady = true,
+  refreshFunction,
 }) => {
+  const [refreshing, setRefreshing] = useState(false);
+
   const contentContainerStyle: StyleProp<ViewStyle> = useMemo(
     () => ({
       flex: isReady ? undefined : 1,
@@ -23,8 +39,21 @@ const ScrollViewContainer: FC<IScrollViewContainer> = ({
     [isReady]
   );
 
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+
+    await refreshFunction();
+
+    setRefreshing(false);
+  }, [refreshFunction]);
+
   return (
-    <StyledScrollView contentContainerStyle={contentContainerStyle}>
+    <StyledScrollView
+      contentContainerStyle={contentContainerStyle}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
       {isReady ? children : <ActivityIndicator color="#fff" size="large" />}
     </StyledScrollView>
   );

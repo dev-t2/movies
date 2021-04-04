@@ -2,12 +2,8 @@ import React, { memo, useCallback, useState } from 'react';
 import styled from 'styled-components/native';
 
 import { movieApi } from '../lib/api';
-import { Horizontal, List } from '../components';
+import { Horizontal, List, ScrollViewContainer } from '../components';
 import { Input } from '../components/search';
-
-const StyledScrollView = styled.ScrollView({
-  backgroundColor: '#000',
-});
 
 interface IMovie {
   id: number;
@@ -35,19 +31,21 @@ const Search = () => {
   }, []);
 
   const onSubmit = useCallback(async () => {
-    const [movies, error] = await movieApi.search(query.trim());
+    if (query.trim() !== '') {
+      const [movies, error] = await movieApi.search(query);
 
-    const filteredMovies = movies.filter((movie: IMovie) => {
-      return (
-        typeof movie.poster_path === 'string' && movie.overview.trim() !== ''
-      );
-    });
+      const filteredMovies = movies.filter((movie: IMovie) => {
+        return (
+          typeof movie.poster_path === 'string' && movie.overview.trim() !== ''
+        );
+      });
 
-    setResults({ movies: filteredMovies, error });
+      setResults({ movies: filteredMovies, error });
+    }
   }, [query]);
 
   return (
-    <StyledScrollView>
+    <ScrollViewContainer refreshFunction={onSubmit}>
       <Input
         value={query}
         placeholder="검색할 영화 제목을 입력하세요."
@@ -69,7 +67,7 @@ const Search = () => {
           ))}
         </List>
       )}
-    </StyledScrollView>
+    </ScrollViewContainer>
   );
 };
 
