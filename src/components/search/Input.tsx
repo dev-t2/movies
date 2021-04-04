@@ -11,7 +11,7 @@ const StyledTextInput = styled.TextInput({
 
 interface IInput {
   value: string;
-  placeholder?: string;
+  placeholder: string;
   onChange: (text: string) => void;
   onSubmit: () => void;
 }

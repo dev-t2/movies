@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 import API_KEY from './apiKey';
-import { defaultImage } from './image';
 
 const getData = async (path: string, params?: {}) => {
   try {
@@ -33,5 +32,5 @@ export const movieApi = {
 };
 
 export const getImageUri = (path?: string) => {
-  return path ? `https://image.tmdb.org/t/p/w500${path}` : defaultImage;
+  return `https://image.tmdb.org/t/p/w500${path}`;
 };

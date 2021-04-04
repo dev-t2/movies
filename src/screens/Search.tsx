@@ -9,15 +9,17 @@ const StyledScrollView = styled.ScrollView({
   backgroundColor: '#000',
 });
 
+interface IMovie {
+  id: number;
+  poster_path: string;
+  backdrop_path: string;
+  title: string;
+  vote_average: number;
+  overview: string;
+}
+
 interface IResults {
-  movies: {
-    id: number;
-    poster_path: string;
-    backdrop_path: string;
-    title: string;
-    vote_average: number;
-    overview: string;
-  }[];
+  movies: IMovie[];
   error: null | Error;
 }
 
@@ -35,12 +37,23 @@ const Search = () => {
   const onSubmit = useCallback(async () => {
     const [movies, error] = await movieApi.search(query.trim());
 
-    setResults({ movies, error });
+    const filteredMovies = movies.filter((movie: IMovie) => {
+      return (
+        typeof movie.poster_path === 'string' && movie.overview.trim() !== ''
+      );
+    });
+
+    setResults({ movies: filteredMovies, error });
   }, [query]);
 
   return (
     <StyledScrollView>
-      <Input value={query} onChange={onChange} onSubmit={onSubmit} />
+      <Input
+        value={query}
+        placeholder="검색할 영화 제목을 입력하세요."
+        onChange={onChange}
+        onSubmit={onSubmit}
+      />
 
       {results.movies.length !== 0 && (
         <List title="Search Results">
