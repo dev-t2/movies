@@ -1,5 +1,6 @@
-import React, { FC, memo, useMemo } from 'react';
+import React, { FC, memo, useCallback, useMemo } from 'react';
 import { Pressable, useWindowDimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
 
 import { formatDate } from '../lib/date';
@@ -42,13 +43,19 @@ interface IVertical {
   releaseDate: string;
 }
 
-const Vertical: FC<IVertical> = ({ poster, title, releaseDate }) => {
+const Vertical: FC<IVertical> = ({ id, poster, title, releaseDate }) => {
+  const navigation = useNavigation();
+
   const { width } = useWindowDimensions();
 
   const formattedDate = useMemo(() => formatDate(releaseDate), [releaseDate]);
 
+  const onPress = useCallback(() => {
+    navigation.navigate('Detail', { id, title });
+  }, [navigation, id, title]);
+
   return (
-    <Pressable>
+    <Pressable onPress={onPress}>
       <StyledContainer width={width}>
         <StyledPosterContainer>
           <Poster poster={poster} />

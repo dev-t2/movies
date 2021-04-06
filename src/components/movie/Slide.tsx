@@ -1,4 +1,5 @@
-import React, { FC, memo, useMemo } from 'react';
+import React, { FC, memo, useCallback, useMemo } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
 
 import { Poster, Vote } from '../../components';
@@ -68,15 +69,22 @@ interface ISlide {
 }
 
 const Slide: FC<ISlide> = ({
+  id,
   backdropImage,
   poster,
   title,
   vote,
   overview,
 }) => {
+  const navigation = useNavigation();
+
   const source = useMemo(() => ({ uri: getImageUri(backdropImage) }), [
     backdropImage,
   ]);
+
+  const onPress = useCallback(() => {
+    navigation.navigate('Detail', { id, title });
+  }, [navigation, id, title]);
 
   return (
     <StyledContainer>
@@ -96,7 +104,7 @@ const Slide: FC<ISlide> = ({
 
           <StyledOverview numberOfLines={4}>{overview}</StyledOverview>
 
-          <StyledPressable>
+          <StyledPressable onPress={onPress}>
             <StyledButtonText>더보기</StyledButtonText>
           </StyledPressable>
         </StyledInfo>

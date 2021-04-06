@@ -1,5 +1,6 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useCallback } from 'react';
 import { Pressable, useWindowDimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
 
 import Poster from './Poster';
@@ -54,11 +55,17 @@ interface IHorizontal {
   overview: string;
 }
 
-const Horizontal: FC<IHorizontal> = ({ poster, title, vote, overview }) => {
+const Horizontal: FC<IHorizontal> = ({ id, poster, title, vote, overview }) => {
+  const navigation = useNavigation();
+
   const { width, height } = useWindowDimensions();
 
+  const onPress = useCallback(() => {
+    navigation.navigate('Detail', { id, title });
+  }, [navigation, id, title]);
+
   return (
-    <Pressable>
+    <Pressable onPress={onPress}>
       <StyledContainer height={height}>
         <StyledPosterContainer width={width}>
           <Poster poster={poster} />
