@@ -2,7 +2,6 @@ import React, { FC, memo, useMemo } from 'react';
 import styled from 'styled-components/native';
 
 import { getImageUri } from '../lib/api';
-import { defaultImage } from '../lib/image';
 
 const StyledImage = styled.Image({
   flex: 1,
@@ -10,7 +9,7 @@ const StyledImage = styled.Image({
 });
 
 interface IPoster {
-  poster?: string;
+  poster: string;
 }
 
 const Poster: FC<IPoster> = ({ poster }) => {

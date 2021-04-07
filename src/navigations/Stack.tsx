@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/stack';
 
 import Tabs from './Tabs';
-import { Detail } from '../screens';
+import { Details } from '../screens';
 
 const Stack = createStackNavigator();
 
@@ -25,7 +25,7 @@ export default memo(() => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name="Tabs" component={Tabs} />
-      <Stack.Screen name="Detail" component={Detail} />
+      <Stack.Screen name="Detail" component={Details} />
     </Stack.Navigator>
   );
 });
