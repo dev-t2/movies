@@ -1,5 +1,4 @@
 import React, { memo, useCallback, useState } from 'react';
-import styled from 'styled-components/native';
 
 import { movieApi } from '../lib/api';
 import { Horizontal, List, ScrollViewContainer } from '../components';
@@ -46,27 +45,29 @@ const Search = () => {
 
   return (
     <ScrollViewContainer refreshFunction={onSubmit}>
-      <Input
-        value={query}
-        placeholder="검색할 영화 제목을 입력하세요."
-        onChange={onChange}
-        onSubmit={onSubmit}
-      />
+      <>
+        <Input
+          value={query}
+          placeholder="검색할 영화 제목을 입력하세요."
+          onChange={onChange}
+          onSubmit={onSubmit}
+        />
 
-      {results.movies.length !== 0 && (
-        <List title="Search Results">
-          {results.movies.map(movie => (
-            <Horizontal
-              key={movie.id}
-              id={movie.id}
-              poster={movie.poster_path}
-              title={movie.title}
-              vote={movie.vote_average}
-              overview={movie.overview}
-            />
-          ))}
-        </List>
-      )}
+        {results.movies.length !== 0 && (
+          <List title="Search Results">
+            {results.movies.map(movie => (
+              <Horizontal
+                key={movie.id}
+                id={movie.id}
+                poster={movie.poster_path}
+                title={movie.title}
+                vote={movie.vote_average}
+                overview={movie.overview}
+              />
+            ))}
+          </List>
+        )}
+      </>
     </ScrollViewContainer>
   );
 };

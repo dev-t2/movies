@@ -51,7 +51,7 @@ const Vertical: FC<IVertical> = ({ id, poster, title, releaseDate }) => {
   const formattedDate = useMemo(() => formatDate(releaseDate), [releaseDate]);
 
   const onPress = useCallback(() => {
-    navigation.navigate('Detail', { id, title });
+    navigation.navigate('Details', { id, title });
   }, [navigation, id, title]);
 
   return (

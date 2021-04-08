@@ -83,7 +83,7 @@ const Slide: FC<ISlide> = ({
   ]);
 
   const onPress = useCallback(() => {
-    navigation.navigate('Detail', { id, title });
+    navigation.navigate('Details', { id, title });
   }, [navigation, id, title]);
 
   return (

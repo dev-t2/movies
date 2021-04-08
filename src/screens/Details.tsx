@@ -1,12 +1,10 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import { useWindowDimensions } from 'react-native';
 import styled from 'styled-components/native';
 
 import { getImageUri, movieApi } from '../lib/api';
 import { Poster, ScrollViewContainer, Vote } from '../components';
-
-const StyledHeader = styled.View({});
 
 interface IStyledBackdropImage {
   height: number;
@@ -20,11 +18,21 @@ const StyledBackdropImage = styled.Image<IStyledBackdropImage>(
   })
 );
 
-const StyledHeaderInfoContainer = styled.View({
-  width: '100%',
-  height: '100%',
-  position: 'absolute',
-});
+interface IStyledHeaderContainer {
+  height: number;
+}
+
+const StyledHeaderContainer = styled.View<IStyledHeaderContainer>(
+  ({ height }) => ({
+    width: '100%',
+    height: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    position: 'relative',
+    bottom: height / 6,
+    marginBottom: 48,
+  })
+);
 
 interface IStyledPosterContainer {
   width: number;
@@ -38,7 +46,31 @@ const StyledPosterContainer = styled.View<IStyledPosterContainer>(
   })
 );
 
+const StyledInfoContainer = styled.View({
+  width: '56%',
+  marginTop: 32,
+  marginLeft: 24,
+});
+
 const StyledTitle = styled.Text({
+  color: '#fff',
+  fontWeight: 'bold',
+  fontSize: 16,
+  marginBottom: 4,
+});
+
+const StyledContentsContainer = styled.View({
+  paddingHorizontal: 24,
+});
+
+const StyledContentsTitle = styled.Text({
+  color: '#fff',
+  fontSize: 16,
+  fontWeight: 'bold',
+  marginBottom: 4,
+});
+
+const StyledOverview = styled.Text({
   color: '#fff',
 });
 
@@ -51,8 +83,6 @@ const Details = () => {
     params: { id },
   } = useRoute<RouteProp<IDetailRoute, 'details'>>();
 
-  const navigation = useNavigation();
-
   const { width, height } = useWindowDimensions();
 
   const [details, setDetails] = useState({
@@ -61,6 +91,7 @@ const Details = () => {
     backdrop_path: '',
     poster_path: '',
     vote_average: 0,
+    overview: '',
     error: null,
   });
 
@@ -74,29 +105,33 @@ const Details = () => {
     setDetails({ isReady: true, ...details, error });
   }, [id]);
 
-  console.log(details);
+  console.log(details.overview);
 
   useEffect(() => {
     getData();
-
-    navigation.setOptions({ title: details.title });
-  }, [getData, navigation, details.title]);
+  }, [getData]);
 
   return (
     <ScrollViewContainer isReady={details.isReady} refreshFunction={getData}>
-      <StyledHeader>
+      <>
         <StyledBackdropImage source={source} height={height} />
 
-        <StyledHeaderInfoContainer>
+        <StyledHeaderContainer height={height}>
           <StyledPosterContainer width={width} height={height}>
             <Poster poster={details.poster_path} />
           </StyledPosterContainer>
 
-          <StyledTitle>{details.title}</StyledTitle>
+          <StyledInfoContainer>
+            <StyledTitle>{details.title}</StyledTitle>
+            <Vote vote={details.vote_average} />
+          </StyledInfoContainer>
+        </StyledHeaderContainer>
 
-          <Vote vote={details.vote_average} />
-        </StyledHeaderInfoContainer>
-      </StyledHeader>
+        <StyledContentsContainer>
+          <StyledContentsTitle>Overview</StyledContentsTitle>
+          <StyledOverview>{details.overview}</StyledOverview>
+        </StyledContentsContainer>
+      </>
     </ScrollViewContainer>
   );
 };

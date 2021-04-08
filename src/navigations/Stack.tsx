@@ -25,7 +25,7 @@ export default memo(() => {
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name="Tabs" component={Tabs} />
-      <Stack.Screen name="Detail" component={Details} />
+      <Stack.Screen name="Details" component={Details} />
     </Stack.Navigator>
   );
 });

@@ -61,7 +61,7 @@ const Horizontal: FC<IHorizontal> = ({ id, poster, title, vote, overview }) => {
   const { width, height } = useWindowDimensions();
 
   const onPress = useCallback(() => {
-    navigation.navigate('Detail', { id, title });
+    navigation.navigate('Details', { id, title });
   }, [navigation, id, title]);
 
   return (

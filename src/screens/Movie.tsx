@@ -60,44 +60,46 @@ const Movie = () => {
 
   return (
     <ScrollViewContainer isReady={movies.isReady} refreshFunction={getData}>
-      <HorizontalSwiper>
-        {movies.nowPlaying.map(movie => (
-          <Slide
-            key={movie.id}
-            id={movie.id}
-            backdropImage={movie.backdrop_path}
-            poster={movie.poster_path}
-            title={movie.title}
-            vote={movie.vote_average}
-            overview={movie.overview}
-          />
-        ))}
-      </HorizontalSwiper>
+      <>
+        <HorizontalSwiper>
+          {movies.nowPlaying.map(movie => (
+            <Slide
+              key={movie.id}
+              id={movie.id}
+              backdropImage={movie.backdrop_path}
+              poster={movie.poster_path}
+              title={movie.title}
+              vote={movie.vote_average}
+              overview={movie.overview}
+            />
+          ))}
+        </HorizontalSwiper>
 
-      <HorizontalSlider title="Upcoming Movies">
-        {movies.upcoming.map(movie => (
-          <Vertical
-            key={movie.id}
-            id={movie.id}
-            poster={movie.poster_path}
-            title={movie.title}
-            releaseDate={movie.release_date}
-          />
-        ))}
-      </HorizontalSlider>
+        <HorizontalSlider title="Upcoming Movies">
+          {movies.upcoming.map(movie => (
+            <Vertical
+              key={movie.id}
+              id={movie.id}
+              poster={movie.poster_path}
+              title={movie.title}
+              releaseDate={movie.release_date}
+            />
+          ))}
+        </HorizontalSlider>
 
-      <List title="Popular Movies">
-        {movies.popular.map(movie => (
-          <Horizontal
-            key={movie.id}
-            id={movie.id}
-            poster={movie.poster_path}
-            title={movie.title}
-            vote={movie.vote_average}
-            overview={movie.overview}
-          />
-        ))}
-      </List>
+        <List title="Popular Movies">
+          {movies.popular.map(movie => (
+            <Horizontal
+              key={movie.id}
+              id={movie.id}
+              poster={movie.poster_path}
+              title={movie.title}
+              vote={movie.vote_average}
+              overview={movie.overview}
+            />
+          ))}
+        </List>
+      </>
     </ScrollViewContainer>
   );
 };
