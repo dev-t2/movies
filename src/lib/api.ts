@@ -12,6 +12,7 @@ const getData = async (path: string, params?: {}) => {
         api_key: API_KEY,
         language: 'ko-KR',
         region: 'kr',
+        append_to_response: 'videos',
         ...params,
       },
     });

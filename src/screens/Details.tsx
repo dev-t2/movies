@@ -4,6 +4,7 @@ import { useWindowDimensions } from 'react-native';
 import styled from 'styled-components/native';
 
 import { getImageUri, movieApi } from '../lib/api';
+import { formatDate } from '../lib/date';
 import { Poster, ScrollViewContainer, Vote } from '../components';
 
 interface IStyledBackdropImage {
@@ -55,22 +56,23 @@ const StyledInfoContainer = styled.View({
 const StyledTitle = styled.Text({
   color: '#fff',
   fontWeight: 'bold',
-  fontSize: 16,
+  fontSize: 20,
   marginBottom: 4,
 });
 
 const StyledContentsContainer = styled.View({
   paddingHorizontal: 24,
+  marginBottom: 24,
 });
 
 const StyledContentsTitle = styled.Text({
   color: '#fff',
   fontSize: 16,
   fontWeight: 'bold',
-  marginBottom: 4,
+  marginBottom: 8,
 });
 
-const StyledOverview = styled.Text({
+const StyledContents = styled.Text({
   color: '#fff',
 });
 
@@ -87,16 +89,21 @@ const Details = () => {
 
   const [details, setDetails] = useState({
     isReady: false,
-    title: '',
     backdrop_path: '',
     poster_path: '',
+    title: '',
     vote_average: 0,
     overview: '',
+    release_date: '',
     error: null,
   });
 
   const source = useMemo(() => ({ uri: getImageUri(details.backdrop_path) }), [
     details.backdrop_path,
+  ]);
+
+  const formattedDate = useMemo(() => formatDate(details.release_date, true), [
+    details.release_date,
   ]);
 
   const getData = useCallback(async () => {
@@ -105,7 +112,7 @@ const Details = () => {
     setDetails({ isReady: true, ...details, error });
   }, [id]);
 
-  console.log(details.overview);
+  console.log(details);
 
   useEffect(() => {
     getData();
@@ -127,10 +134,19 @@ const Details = () => {
           </StyledInfoContainer>
         </StyledHeaderContainer>
 
-        <StyledContentsContainer>
-          <StyledContentsTitle>Overview</StyledContentsTitle>
-          <StyledOverview>{details.overview}</StyledOverview>
-        </StyledContentsContainer>
+        {details.overview && (
+          <StyledContentsContainer>
+            <StyledContentsTitle>Overview</StyledContentsTitle>
+            <StyledContents>{details.overview}</StyledContents>
+          </StyledContentsContainer>
+        )}
+
+        {details.release_date && (
+          <StyledContentsContainer>
+            <StyledContentsTitle>Release Date</StyledContentsTitle>
+            <StyledContents>{formattedDate}</StyledContents>
+          </StyledContentsContainer>
+        )}
       </>
     </ScrollViewContainer>
   );
