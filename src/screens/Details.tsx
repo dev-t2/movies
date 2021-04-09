@@ -95,6 +95,8 @@ const Details = () => {
     vote_average: 0,
     overview: '',
     release_date: '',
+    genres: [{ name: '' }],
+    runtime: 0,
     error: null,
   });
 
@@ -136,15 +138,28 @@ const Details = () => {
 
         {details.overview && (
           <StyledContentsContainer>
-            <StyledContentsTitle>Overview</StyledContentsTitle>
             <StyledContents>{details.overview}</StyledContents>
           </StyledContentsContainer>
         )}
 
         {details.release_date && (
           <StyledContentsContainer>
-            <StyledContentsTitle>Release Date</StyledContentsTitle>
+            <StyledContentsTitle>개봉일</StyledContentsTitle>
             <StyledContents>{formattedDate}</StyledContents>
+          </StyledContentsContainer>
+        )}
+
+        <StyledContentsContainer>
+          <StyledContentsTitle>장르</StyledContentsTitle>
+          <StyledContents>
+            {details.genres.map(genre => `${genre.name}    `)}
+          </StyledContents>
+        </StyledContentsContainer>
+
+        {details.runtime && (
+          <StyledContentsContainer>
+            <StyledContentsTitle>러닝타임</StyledContentsTitle>
+            <StyledContents>{details.runtime}분</StyledContents>
           </StyledContentsContainer>
         )}
       </>
