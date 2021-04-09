@@ -5,7 +5,9 @@ import styled from 'styled-components/native';
 
 import { getImageUri, movieApi } from '../lib/api';
 import { formatDate } from '../lib/date';
+import { openBrowser } from '../lib/browser';
 import { Poster, ScrollViewContainer, Vote } from '../components';
+import { OpenLink } from '../components/details';
 
 interface IStyledBackdropImage {
   height: number;
@@ -74,11 +76,26 @@ const StyledContentsTitle = styled.Text({
 
 const StyledContents = styled.Text({
   color: '#fff',
+  paddingHorizontal: 4,
 });
 
 type IDetailRoute = {
   details: { id: number };
 };
+
+interface IDetails {
+  isReady: boolean;
+  backdrop_path: string;
+  poster_path: string;
+  title: string;
+  vote_average: number;
+  overview: string;
+  release_date: string;
+  genres: [{ name: string }?];
+  runtime: number;
+  videos: { results: [{ key: string; name: string }?] };
+  error: null;
+}
 
 const Details = () => {
   const {
@@ -87,7 +104,7 @@ const Details = () => {
 
   const { width, height } = useWindowDimensions();
 
-  const [details, setDetails] = useState({
+  const [details, setDetails] = useState<IDetails>({
     isReady: false,
     backdrop_path: '',
     poster_path: '',
@@ -95,8 +112,9 @@ const Details = () => {
     vote_average: 0,
     overview: '',
     release_date: '',
-    genres: [{ name: '' }],
+    genres: [],
     runtime: 0,
+    videos: { results: [] },
     error: null,
   });
 
@@ -114,11 +132,20 @@ const Details = () => {
     setDetails({ isReady: true, ...details, error });
   }, [id]);
 
-  console.log(details);
-
   useEffect(() => {
     getData();
   }, [getData]);
+
+  const onPress = useCallback(
+    (key?: string) => () => {
+      if (key) {
+        openBrowser(`https://www.youtube.com/watch?v=${key}`);
+      }
+    },
+    []
+  );
+
+  console.log(details);
 
   return (
     <ScrollViewContainer isReady={details.isReady} refreshFunction={getData}>
@@ -149,17 +176,33 @@ const Details = () => {
           </StyledContentsContainer>
         )}
 
-        <StyledContentsContainer>
-          <StyledContentsTitle>장르</StyledContentsTitle>
-          <StyledContents>
-            {details.genres.map(genre => `${genre.name}    `)}
-          </StyledContents>
-        </StyledContentsContainer>
+        {details.genres.length > 0 && (
+          <StyledContentsContainer>
+            <StyledContentsTitle>장르</StyledContentsTitle>
+            <StyledContents>
+              {details.genres.map(genre => `${genre?.name}    `)}
+            </StyledContents>
+          </StyledContentsContainer>
+        )}
 
-        {details.runtime && (
+        {details.runtime !== 0 && (
           <StyledContentsContainer>
             <StyledContentsTitle>러닝타임</StyledContentsTitle>
             <StyledContents>{details.runtime}분</StyledContents>
+          </StyledContentsContainer>
+        )}
+
+        {details.videos.results.length > 0 && (
+          <StyledContentsContainer>
+            <StyledContentsTitle>관련 영상</StyledContentsTitle>
+            {details.videos.results.map(result => (
+              <OpenLink
+                key={result?.key}
+                icon="youtube"
+                text={result?.name}
+                onPress={onPress(result?.key)}
+              />
+            ))}
           </StyledContentsContainer>
         )}
       </>
