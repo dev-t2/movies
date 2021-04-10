@@ -25,7 +25,7 @@ const StyledCard = styled(Animated.View)<IStyledCard>(({ height, zIndex }) => ({
 }));
 
 const Discovery = () => {
-  const { height } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
 
   const [discovery, setDiscovery] = useState({
     discover: [{ id: 0, poster_path: '' }],
@@ -52,17 +52,27 @@ const Discovery = () => {
     [position]
   );
 
-  const transform = useMemo(() => {
+  const topStyle = useMemo(() => {
     const rotate = position.x.interpolate({
-      inputRange: [-100, 0, 100],
-      outputRange: ['-5deg', '0deg', '5deg'],
+      inputRange: [-width / 2, 0, width / 2],
+      outputRange: ['-8deg', '0deg', '8deg'],
       extrapolate: 'clamp',
     });
 
     return {
       transform: [{ rotate }, ...position.getTranslateTransform()],
     };
-  }, [position]);
+  }, [position, width]);
+
+  const otherStyle = useMemo(() => {
+    const opacity = position.x.interpolate({
+      inputRange: [-width / 2, 0, width / 2],
+      outputRange: ['0.9', '0.45', '0.9'],
+      extrapolate: 'clamp',
+    });
+
+    return { opacity };
+  }, [position, width]);
 
   const getData = useCallback(async () => {
     const [discover, error] = await movieApi.discover();
@@ -82,7 +92,7 @@ const Discovery = () => {
             key={cover.id}
             height={height}
             zIndex={index === topIndex ? 1 : -index}
-            style={index === topIndex ? transform : null}
+            style={index === topIndex ? topStyle : otherStyle}
             {...panResponder.panHandlers}
           >
             <Poster poster={cover.poster_path} borderRadius={16} />
