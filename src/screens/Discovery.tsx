@@ -1,9 +1,9 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
-import { useWindowDimensions } from 'react-native';
+import { PanResponder, useWindowDimensions } from 'react-native';
 import styled from 'styled-components/native';
-import { Poster } from '../components';
 
 import { movieApi } from '../lib/api';
+import { Poster } from '../components';
 
 const StyledContainer = styled.View({
   flex: 1,
@@ -40,10 +40,21 @@ const Discovery = () => {
     getData();
   }, [getData]);
 
+  const panResponder = PanResponder.create({
+    onStartShouldSetPanResponder: () => true,
+    onPanResponderMove: (event, { dx }) => {
+      console.log({ dx });
+    },
+  });
+
   return (
     <StyledContainer>
       {discovery.discover.reverse().map(cover => (
-        <StyledCard key={cover.id} height={height}>
+        <StyledCard
+          key={cover.id}
+          height={height}
+          {...panResponder.panHandlers}
+        >
           <Poster poster={cover.poster_path} borderRadius={16} />
         </StyledCard>
       ))}

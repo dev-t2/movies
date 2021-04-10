@@ -35,6 +35,7 @@ module.exports = {
     'no-unused-vars': 0,
     'operator-linebreak': 0,
     'react/jsx-wrap-multilines': 0,
+    'react/jsx-props-no-spreading': 0,
     camelcase: 0,
   },
 };
