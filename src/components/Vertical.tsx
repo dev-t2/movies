@@ -10,7 +10,7 @@ interface IStyledContainer {
 }
 
 const StyledContainer = styled.View<IStyledContainer>(({ width }) => ({
-  width: width / 3.8,
+  width: width / 3.6,
   height: '100%',
   marginRight: 12,
 }));

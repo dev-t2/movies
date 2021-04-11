@@ -124,7 +124,11 @@ const Discovery = () => {
               style={firstCard}
               {...panResponder.panHandlers}
             >
-              <Poster poster={movie.poster_path} borderRadius={16} />
+              <Poster
+                poster={movie.poster_path}
+                borderRadius={4}
+                resizeMode="contain"
+              />
             </StyledCard>
           );
         } else if (index === (topIndex + 1) % movies.length) {
@@ -136,7 +140,11 @@ const Discovery = () => {
               style={secondCard}
               {...panResponder.panHandlers}
             >
-              <Poster poster={movie.poster_path} borderRadius={16} />
+              <Poster
+                poster={movie.poster_path}
+                borderRadius={4}
+                resizeMode="contain"
+              />
             </StyledCard>
           );
         } else {
@@ -147,7 +155,11 @@ const Discovery = () => {
               zIndex={-index}
               {...panResponder.panHandlers}
             >
-              <Poster poster={movie.poster_path} borderRadius={16} />
+              <Poster
+                poster={movie.poster_path}
+                borderRadius={4}
+                resizeMode="contain"
+              />
             </StyledCard>
           );
         }
