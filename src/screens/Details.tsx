@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import { RouteProp, useRoute } from '@react-navigation/native';
 import { useWindowDimensions } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 
 import { getImageUri, movieApi } from '../lib/api';
@@ -17,6 +18,7 @@ const StyledBackdropImage = styled.Image<IStyledBackdropImage>(
     width: '100%',
     height: height / 3,
     opacity: 0.4,
+    marginTop: 8,
   })
 );
 
@@ -32,7 +34,7 @@ const StyledHeaderContainer = styled.View<IStyledHeaderContainer>(
     justifyContent: 'center',
     position: 'relative',
     bottom: height / 6,
-    marginBottom: 48,
+    marginBottom: 56,
   })
 );
 
@@ -43,8 +45,8 @@ interface IStyledPosterContainer {
 
 const StyledPosterContainer = styled.View<IStyledPosterContainer>(
   ({ width, height }) => ({
-    width: width / 4,
-    height: height / 5,
+    width: width / 3.8,
+    height: height / 4.8,
   })
 );
 
@@ -57,13 +59,13 @@ const StyledInfoContainer = styled.View({
 const StyledTitle = styled.Text({
   color: '#fff',
   fontWeight: 'bold',
-  fontSize: 20,
+  fontSize: 24,
   marginBottom: 4,
 });
 
 const StyledContentsContainer = styled.View({
   paddingHorizontal: 24,
-  marginBottom: 24,
+  marginBottom: 16,
 });
 
 const StyledContentsTitle = styled.Text({
@@ -75,7 +77,8 @@ const StyledContentsTitle = styled.Text({
 
 const StyledContents = styled.Text({
   color: '#fff',
-  paddingHorizontal: 4,
+  opacity: 0.8,
+  paddingHorizontal: 8,
 });
 
 type IDetailRoute = {
@@ -140,7 +143,7 @@ const Details = () => {
 
   return (
     <ScrollViewContainer isReady={details.isReady} refreshFunction={getData}>
-      <>
+      <SafeAreaView>
         <StyledBackdropImage source={source} height={height} />
 
         <StyledHeaderContainer height={height}>
@@ -182,14 +185,13 @@ const Details = () => {
             {details.videos.results.map(result => (
               <OpenLink
                 key={result?.key}
-                icon="youtube"
                 text={result?.name}
                 onPress={onPress(result?.key)}
               />
             ))}
           </StyledContentsContainer>
         )}
-      </>
+      </SafeAreaView>
     </ScrollViewContainer>
   );
 };
