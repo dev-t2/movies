@@ -4,7 +4,6 @@ import { useWindowDimensions } from 'react-native';
 import styled from 'styled-components/native';
 
 import { getImageUri, movieApi } from '../lib/api';
-import { formatDate } from '../lib/date';
 import { openBrowser } from '../lib/browser';
 import { Poster, ScrollViewContainer, Vote } from '../components';
 import { OpenLink } from '../components/details';
@@ -90,7 +89,6 @@ interface IDetails {
   title: string;
   vote_average: number;
   overview: string;
-  release_date: string;
   genres: [{ name: string }?];
   runtime: number;
   videos: { results: [{ key: string; name: string }?] };
@@ -111,7 +109,6 @@ const Details = () => {
     title: '',
     vote_average: 0,
     overview: '',
-    release_date: '',
     genres: [],
     runtime: 0,
     videos: { results: [] },
@@ -120,10 +117,6 @@ const Details = () => {
 
   const source = useMemo(() => ({ uri: getImageUri(details.backdrop_path) }), [
     details.backdrop_path,
-  ]);
-
-  const formattedDate = useMemo(() => formatDate(details.release_date, true), [
-    details.release_date,
   ]);
 
   const getData = useCallback(async () => {
@@ -145,6 +138,8 @@ const Details = () => {
     []
   );
 
+  console.log(details);
+
   return (
     <ScrollViewContainer isReady={details.isReady} refreshFunction={getData}>
       <>
@@ -164,13 +159,6 @@ const Details = () => {
         {details.overview && (
           <StyledContentsContainer>
             <StyledContents>{details.overview}</StyledContents>
-          </StyledContentsContainer>
-        )}
-
-        {details.release_date && (
-          <StyledContentsContainer>
-            <StyledContentsTitle>개봉일</StyledContentsTitle>
-            <StyledContents>{formattedDate}</StyledContents>
           </StyledContentsContainer>
         )}
 

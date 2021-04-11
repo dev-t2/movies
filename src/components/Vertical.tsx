@@ -1,9 +1,8 @@
-import React, { FC, memo, useCallback, useMemo } from 'react';
+import React, { FC, memo, useCallback } from 'react';
 import { Pressable, useWindowDimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
 
-import { formatDate } from '../lib/date';
 import Poster from './Poster';
 
 interface IStyledContainer {
@@ -30,25 +29,16 @@ const StyledTitle = styled.Text({
   fontWeight: 'bold',
 });
 
-const StyledReleaseDate = styled.Text({
-  color: '#fff',
-  fontSize: 10,
-  marginBottom: 8,
-});
-
 interface IVertical {
   id: number;
   poster: string;
   title: string;
-  releaseDate: string;
 }
 
-const Vertical: FC<IVertical> = ({ id, poster, title, releaseDate }) => {
+const Vertical: FC<IVertical> = ({ id, poster, title }) => {
   const navigation = useNavigation();
 
   const { width } = useWindowDimensions();
-
-  const formattedDate = useMemo(() => formatDate(releaseDate), [releaseDate]);
 
   const onPress = useCallback(() => {
     navigation.navigate('Details', { id, title });
@@ -63,10 +53,6 @@ const Vertical: FC<IVertical> = ({ id, poster, title, releaseDate }) => {
 
         <StyledTextContainer>
           <StyledTitle numberOfLines={1}>{title}</StyledTitle>
-        </StyledTextContainer>
-
-        <StyledTextContainer>
-          <StyledReleaseDate>{formattedDate}</StyledReleaseDate>
         </StyledTextContainer>
       </StyledContainer>
     </Pressable>

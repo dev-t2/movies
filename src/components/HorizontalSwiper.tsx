@@ -24,7 +24,7 @@ const HorizontalSwiper: FC<IHorizontalSwiper> = ({ children }) => {
 
   return (
     <StyledSwiperContainer height={height}>
-      <Swiper controlsEnabled={false} loop timeout={4}>
+      <Swiper controlsEnabled={false} loop timeout={5}>
         {children}
       </Swiper>
     </StyledSwiperContainer>

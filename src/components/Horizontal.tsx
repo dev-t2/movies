@@ -78,7 +78,7 @@ const Horizontal: FC<IHorizontal> = ({ id, poster, title, vote, overview }) => {
             <Vote vote={vote} />
           </StyledVoteContainer>
 
-          <StyledOverview numberOfLines={5}>{overview}</StyledOverview>
+          <StyledOverview numberOfLines={4}>{overview}</StyledOverview>
         </StyledInfoContainer>
       </StyledContainer>
     </Pressable>

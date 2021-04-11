@@ -37,8 +37,8 @@ const Discovery = () => {
   const position = useMemo(() => new Animated.ValueXY(), []);
 
   const nextCard = useCallback(() => {
-    setTopIndex(prev => prev + 1);
-  }, []);
+    setTopIndex(prev => (prev + 1) % discovery.discover.length);
+  }, [discovery.discover]);
 
   const panResponder = useMemo(
     () =>
@@ -119,9 +119,7 @@ const Discovery = () => {
   return (
     <StyledContainer>
       {discovery.discover.map((cover, index) => {
-        if (index < topIndex) {
-          return null;
-        } else if (index === topIndex) {
+        if (index === topIndex) {
           return (
             <StyledCard
               key={cover.id}
@@ -133,7 +131,9 @@ const Discovery = () => {
               <Poster poster={cover.poster_path} borderRadius={16} />
             </StyledCard>
           );
-        } else if (index === topIndex + 1) {
+        }
+
+        if (index === (topIndex + 1) % discovery.discover.length) {
           return (
             <StyledCard
               key={cover.id}
@@ -147,16 +147,7 @@ const Discovery = () => {
           );
         }
 
-        return (
-          <StyledCard
-            key={cover.id}
-            height={height}
-            zIndex={-index}
-            {...panResponder.panHandlers}
-          >
-            <Poster poster={cover.poster_path} borderRadius={16} />
-          </StyledCard>
-        );
+        return null;
       })}
     </StyledContainer>
   );

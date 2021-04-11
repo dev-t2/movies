@@ -102,7 +102,7 @@ const Slide: FC<ISlide> = ({
             <Vote vote={vote} />
           </StyledVoteContainer>
 
-          <StyledOverview numberOfLines={4}>{overview}</StyledOverview>
+          <StyledOverview numberOfLines={3}>{overview}</StyledOverview>
 
           <StyledPressable onPress={onPress}>
             <StyledButtonText>더보기</StyledButtonText>

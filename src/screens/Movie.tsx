@@ -29,7 +29,6 @@ const Movie = () => {
         id: 0,
         poster_path: '',
         title: '',
-        release_date: '',
       },
     ],
     popular: [
@@ -82,7 +81,6 @@ const Movie = () => {
               id={movie.id}
               poster={movie.poster_path}
               title={movie.title}
-              releaseDate={movie.release_date}
             />
           ))}
         </HorizontalSlider>
