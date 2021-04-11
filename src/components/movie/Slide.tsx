@@ -21,15 +21,17 @@ const StyledContents = styled.View({
   flexDirection: 'row',
   justifyContent: 'space-around',
   alignItems: 'center',
+  paddingHorizontal: 24,
 });
 
 const StyledPosterContainer = styled.View({
-  width: '28%',
-  height: '92%',
+  width: '36%',
+  height: '80%',
+  marginRight: 24,
 });
 
 const StyledInfo = styled.View({
-  width: '50%',
+  flex: 1,
   alignItems: 'flex-start',
 });
 
@@ -102,7 +104,7 @@ const Slide: FC<ISlide> = ({
             <Vote vote={vote} />
           </StyledVoteContainer>
 
-          <StyledOverview numberOfLines={3}>{overview}</StyledOverview>
+          <StyledOverview numberOfLines={4}>{overview}</StyledOverview>
 
           <StyledPressable onPress={onPress}>
             <StyledButtonText>더보기</StyledButtonText>

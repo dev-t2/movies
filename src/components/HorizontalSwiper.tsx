@@ -10,7 +10,7 @@ interface IStyledSwiperContainer {
 const StyledSwiperContainer = styled.View<IStyledSwiperContainer>(
   ({ height }) => ({
     width: '100%',
-    height: height / 4,
+    height: height / 3,
     marginBottom: 32,
   })
 );
