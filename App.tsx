@@ -23,7 +23,7 @@ const App = () => {
 
   return isReady ? (
     <>
-      <StatusBar style="light" />
+      <StatusBar backgroundColor="#000" style="light" />
 
       <NavigationContainer>
         <Stack />

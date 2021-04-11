@@ -132,7 +132,7 @@ const Details = () => {
     getData();
   }, [getData]);
 
-  const onPress = useCallback(
+  const onPressYoutube = useCallback(
     (key?: string) => () => {
       if (key) {
         openBrowser(`https://www.youtube.com/watch?v=${key}`);
@@ -186,7 +186,7 @@ const Details = () => {
               <OpenLink
                 key={result?.key}
                 text={result?.name}
-                onPress={onPress(result?.key)}
+                onPress={onPressYoutube(result?.key)}
               />
             ))}
           </StyledContentsContainer>

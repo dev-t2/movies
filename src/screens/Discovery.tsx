@@ -109,7 +109,7 @@ const Discovery = () => {
   );
 
   const getData = useCallback(async () => {
-    const [discover, error] = await movieApi.discover();
+    const [discover, error] = await movieApi.nowPlaying();
 
     setDiscovery({ discover, error });
   }, []);
