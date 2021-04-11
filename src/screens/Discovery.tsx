@@ -52,27 +52,33 @@ const Discovery = () => {
     [position]
   );
 
-  const topStyle = useMemo(() => {
-    const rotate = position.x.interpolate({
-      inputRange: [-width / 2, 0, width / 2],
-      outputRange: ['-8deg', '0deg', '8deg'],
-      extrapolate: 'clamp',
-    });
+  const rotate = useMemo(
+    () =>
+      position.x.interpolate({
+        inputRange: [-width / 2, 0, width / 2],
+        outputRange: ['-8deg', '0deg', '8deg'],
+        extrapolate: 'clamp',
+      }),
+    [position.x, width]
+  );
 
-    return {
+  const transform = useMemo(
+    () => ({
       transform: [{ rotate }, ...position.getTranslateTransform()],
-    };
-  }, [position, width]);
+    }),
+    [rotate, position]
+  );
 
-  const otherStyle = useMemo(() => {
-    const opacity = position.x.interpolate({
-      inputRange: [-width / 2, 0, width / 2],
-      outputRange: ['0.9', '0.45', '0.9'],
-      extrapolate: 'clamp',
-    });
-
-    return { opacity };
-  }, [position, width]);
+  const opacity = useMemo(
+    () => ({
+      opacity: position.x.interpolate({
+        inputRange: [-width / 2, 0, width / 2],
+        outputRange: [1, 0.5, 1],
+        extrapolate: 'clamp',
+      }),
+    }),
+    [position.x, width]
+  );
 
   const getData = useCallback(async () => {
     const [discover, error] = await movieApi.discover();
@@ -92,7 +98,7 @@ const Discovery = () => {
             key={cover.id}
             height={height}
             zIndex={index === topIndex ? 1 : -index}
-            style={index === topIndex ? topStyle : otherStyle}
+            style={index === topIndex ? transform : opacity}
             {...panResponder.panHandlers}
           >
             <Poster poster={cover.poster_path} borderRadius={16} />
