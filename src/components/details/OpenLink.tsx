@@ -6,7 +6,8 @@ import styled from 'styled-components/native';
 const StyledContainer = styled.Pressable({
   flexDirection: 'row',
   alignItems: 'center',
-  paddingHorizontal: 4,
+  paddingLeft: 4,
+  paddingRight: 40,
   marginBottom: 4,
 });
 

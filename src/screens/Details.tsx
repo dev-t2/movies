@@ -138,8 +138,6 @@ const Details = () => {
     []
   );
 
-  console.log(details);
-
   return (
     <ScrollViewContainer isReady={details.isReady} refreshFunction={getData}>
       <>
