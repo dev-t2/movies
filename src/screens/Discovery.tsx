@@ -36,6 +36,10 @@ const Discovery = () => {
 
   const position = useMemo(() => new Animated.ValueXY(), []);
 
+  const nextCard = useCallback(() => {
+    setTopIndex(prev => prev + 1);
+  }, []);
+
   const panResponder = useMemo(
     () =>
       PanResponder.create({
@@ -43,14 +47,26 @@ const Discovery = () => {
         onPanResponderMove: (_, { dx, dy }) => {
           position.setValue({ x: dx, y: dy });
         },
-        onPanResponderRelease: () => {
-          Animated.spring(position, {
-            useNativeDriver: true,
-            toValue: { x: 0, y: 0 },
-          }).start();
+        onPanResponderRelease: (_, { dx, dy }) => {
+          if (dx >= 240) {
+            Animated.spring(position, {
+              useNativeDriver: true,
+              toValue: { x: width * 1.2, y: dy },
+            }).start(nextCard);
+          } else if (dx <= -240) {
+            Animated.spring(position, {
+              useNativeDriver: true,
+              toValue: { x: -width * 1.2, y: dy },
+            }).start(nextCard);
+          } else {
+            Animated.spring(position, {
+              useNativeDriver: true,
+              toValue: { x: 0, y: 0 },
+            }).start();
+          }
         },
       }),
-    [position]
+    [position, width, nextCard]
   );
 
   const topCard = useMemo(
@@ -103,7 +119,9 @@ const Discovery = () => {
   return (
     <StyledContainer>
       {discovery.discover.map((cover, index) => {
-        if (index === topIndex) {
+        if (index < topIndex) {
+          return null;
+        } else if (index === topIndex) {
           return (
             <StyledCard
               key={cover.id}
@@ -122,6 +140,7 @@ const Discovery = () => {
               height={height}
               zIndex={-index}
               style={secondCard}
+              {...panResponder.panHandlers}
             >
               <Poster poster={cover.poster_path} borderRadius={16} />
             </StyledCard>
@@ -129,7 +148,12 @@ const Discovery = () => {
         }
 
         return (
-          <StyledCard key={cover.id} height={height} zIndex={-index}>
+          <StyledCard
+            key={cover.id}
+            height={height}
+            zIndex={-index}
+            {...panResponder.panHandlers}
+          >
             <Poster poster={cover.poster_path} borderRadius={16} />
           </StyledCard>
         );

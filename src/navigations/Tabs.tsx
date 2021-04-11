@@ -34,13 +34,13 @@ export default memo(() => {
 
   return (
     <Tabs.Navigator tabBarOptions={tabBarOptions}>
+      <Tabs.Screen name="Movie" component={Movie} options={movieIcon} />
+      <Tabs.Screen name="Search" component={Search} options={searchIcon} />
       <Tabs.Screen
         name="Discovery"
         component={Discovery}
         options={discoveryIcon}
       />
-      <Tabs.Screen name="Movie" component={Movie} options={movieIcon} />
-      <Tabs.Screen name="Search" component={Search} options={searchIcon} />
     </Tabs.Navigator>
   );
 });
