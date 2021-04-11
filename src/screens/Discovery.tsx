@@ -21,6 +21,7 @@ const StyledCard = styled(Animated.View)<IStyledCard>(({ height, zIndex }) => ({
   width: '90%',
   height: height / 1.3,
   position: 'absolute',
+  opacity: 0,
   zIndex,
 }));
 
@@ -39,7 +40,7 @@ const Discovery = () => {
     () =>
       PanResponder.create({
         onStartShouldSetPanResponder: () => true,
-        onPanResponderMove: (event, { dx, dy }) => {
+        onPanResponderMove: (_, { dx, dy }) => {
           position.setValue({ x: dx, y: dy });
         },
         onPanResponderRelease: () => {
@@ -52,30 +53,39 @@ const Discovery = () => {
     [position]
   );
 
-  const rotate = useMemo(
-    () =>
-      position.x.interpolate({
-        inputRange: [-width / 2, 0, width / 2],
-        outputRange: ['-8deg', '0deg', '8deg'],
-        extrapolate: 'clamp',
-      }),
-    [position.x, width]
-  );
-
-  const transform = useMemo(
+  const topCard = useMemo(
     () => ({
-      transform: [{ rotate }, ...position.getTranslateTransform()],
+      opacity: 1,
+      transform: [
+        {
+          rotate: position.x.interpolate({
+            inputRange: [-width / 2, 0, width / 2],
+            outputRange: ['-8deg', '0deg', '8deg'],
+            extrapolate: 'clamp',
+          }),
+        },
+        ...position.getTranslateTransform(),
+      ],
     }),
-    [rotate, position]
+    [position, width]
   );
 
-  const opacity = useMemo(
+  const secondCard = useMemo(
     () => ({
       opacity: position.x.interpolate({
         inputRange: [-width / 2, 0, width / 2],
-        outputRange: [1, 0.5, 1],
+        outputRange: [1, 0, 1],
         extrapolate: 'clamp',
       }),
+      transform: [
+        {
+          scale: position.x.interpolate({
+            inputRange: [-width / 2, 0, width / 2],
+            outputRange: [1, 0.8, 1],
+            extrapolate: 'clamp',
+          }),
+        },
+      ],
     }),
     [position.x, width]
   );
@@ -93,14 +103,33 @@ const Discovery = () => {
   return (
     <StyledContainer>
       {discovery.discover.map((cover, index) => {
+        if (index === topIndex) {
+          return (
+            <StyledCard
+              key={cover.id}
+              height={height}
+              zIndex={1}
+              style={topCard}
+              {...panResponder.panHandlers}
+            >
+              <Poster poster={cover.poster_path} borderRadius={16} />
+            </StyledCard>
+          );
+        } else if (index === topIndex + 1) {
+          return (
+            <StyledCard
+              key={cover.id}
+              height={height}
+              zIndex={-index}
+              style={secondCard}
+            >
+              <Poster poster={cover.poster_path} borderRadius={16} />
+            </StyledCard>
+          );
+        }
+
         return (
-          <StyledCard
-            key={cover.id}
-            height={height}
-            zIndex={index === topIndex ? 1 : -index}
-            style={index === topIndex ? transform : opacity}
-            {...panResponder.panHandlers}
-          >
+          <StyledCard key={cover.id} height={height} zIndex={-index}>
             <Poster poster={cover.poster_path} borderRadius={16} />
           </StyledCard>
         );
