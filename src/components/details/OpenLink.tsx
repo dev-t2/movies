@@ -8,11 +8,11 @@ const StyledContainer = styled.Pressable({
   alignItems: 'center',
   paddingLeft: 4,
   paddingRight: 40,
-  marginBottom: 4,
+  marginBottom: 8,
 });
 
 const StyledIcon = styled(Ionicons)({
-  marginRight: 8,
+  marginRight: 12,
 });
 
 const StyledText = styled.Text({
