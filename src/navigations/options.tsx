@@ -6,7 +6,8 @@ import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 const IS_APPLE_PLATFORM = Platform.OS === 'ios' || Platform.OS === 'macos';
 const SIZE = 24;
 
-export const movieIcon: BottomTabNavigationOptions = {
+export const movieOptions: BottomTabNavigationOptions = {
+  tabBarVisible: false,
   tabBarIcon: ({ focused }) => {
     return (
       <Ionicons
@@ -18,7 +19,8 @@ export const movieIcon: BottomTabNavigationOptions = {
   },
 };
 
-export const searchIcon: BottomTabNavigationOptions = {
+export const searchOptions: BottomTabNavigationOptions = {
+  tabBarVisible: false,
   tabBarIcon: ({ focused }) => {
     return (
       <Ionicons
@@ -30,7 +32,8 @@ export const searchIcon: BottomTabNavigationOptions = {
   },
 };
 
-export const discoveryIcon: BottomTabNavigationOptions = {
+export const discoveryOptions: BottomTabNavigationOptions = {
+  tabBarVisible: false,
   tabBarIcon: ({ focused }) => {
     return (
       <Ionicons
