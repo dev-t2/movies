@@ -1,5 +1,7 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
+import styled from 'styled-components/native';
 
 import { movieApi } from '../lib/api';
 import {
@@ -12,7 +14,21 @@ import {
 } from '../components';
 import { Slide } from '../components/movie';
 
+const StyledPressable = styled.Pressable({
+  alignItems: 'flex-end',
+  marginBottom: 4,
+});
+
+const StyledText = styled.Text({
+  color: '#fff',
+  fontWeight: 'bold',
+  opacity: 0.8,
+  marginRight: 4,
+});
+
 const Movie = () => {
+  const navigation = useNavigation();
+
   const [movies, setMovies] = useState({
     isReady: false,
     nowPlaying: [
@@ -58,6 +74,10 @@ const Movie = () => {
     getData();
   }, [getData]);
 
+  const onPress = useCallback(() => {
+    navigation.navigate('Discovery', { movies: movies.nowPlaying });
+  }, [navigation, movies.nowPlaying]);
+
   return (
     <ScrollViewContainer isReady={movies.isReady} refreshFunction={getData}>
       <SafeAreaView>
@@ -74,6 +94,10 @@ const Movie = () => {
             />
           ))}
         </HorizontalSwiper>
+
+        <StyledPressable onPress={onPress}>
+          <StyledText>상영 영화 포스터 보기</StyledText>
+        </StyledPressable>
 
         <HorizontalSlider title="개봉 예정 영화">
           {movies.upcoming.map(movie => (

@@ -33,8 +33,8 @@ const StyledHeaderContainer = styled.View<IStyledHeaderContainer>(
     flexDirection: 'row',
     justifyContent: 'center',
     position: 'relative',
-    bottom: height / 6,
-    marginBottom: 56,
+    bottom: height / 5.6,
+    marginBottom: 40,
   })
 );
 
@@ -141,6 +141,13 @@ const Details = () => {
     []
   );
 
+  const onPressNaver = useCallback(
+    (title: string) => () => {
+      openBrowser(`https://search.naver.com/search.naver?query=${title}`);
+    },
+    []
+  );
+
   return (
     <ScrollViewContainer isReady={details.isReady} refreshFunction={getData}>
       <SafeAreaView>
@@ -191,6 +198,14 @@ const Details = () => {
             ))}
           </StyledContentsContainer>
         )}
+
+        <StyledContentsContainer>
+          <StyledContentsTitle>링크</StyledContentsTitle>
+          <OpenLink
+            text="네이버 검색 바로가기"
+            onPress={onPressNaver(details.title)}
+          />
+        </StyledContentsContainer>
       </SafeAreaView>
     </ScrollViewContainer>
   );

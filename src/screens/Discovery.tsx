@@ -1,8 +1,8 @@
-import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import { Animated, PanResponder, useWindowDimensions } from 'react-native';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 
-import { movieApi } from '../lib/api';
 import { Poster } from '../components';
 
 const StyledContainer = styled.View({
@@ -18,29 +18,33 @@ interface IStyledCard {
 }
 
 const StyledCard = styled(Animated.View)<IStyledCard>(({ height, zIndex }) => ({
-  width: '90%',
-  height: height / 1.3,
+  width: '88%',
+  height: '80%',
   position: 'absolute',
   opacity: 0,
   zIndex,
 }));
 
+type IDiscoveryRoute = {
+  discovery: { movies: [{ id: number; poster_path: string }] };
+};
+
 const Discovery = () => {
+  const {
+    params: { movies },
+  } = useRoute<RouteProp<IDiscoveryRoute, 'discovery'>>();
+
   const { width, height } = useWindowDimensions();
 
-  const [discovery, setDiscovery] = useState({
-    discover: [{ id: 0, poster_path: '' }],
-    error: null,
-  });
   const [topIndex, setTopIndex] = useState(0);
 
   const position = useMemo(() => new Animated.ValueXY(), []);
 
   const nextCard = useCallback(() => {
-    setTopIndex(prev => (prev + 1) % discovery.discover.length);
+    setTopIndex(prev => (prev + 1) % movies.length);
 
     position.setValue({ x: 0, y: 0 });
-  }, [discovery.discover, position]);
+  }, [movies, position]);
 
   const panResponder = useMemo(
     () =>
@@ -71,7 +75,7 @@ const Discovery = () => {
     [position, width, nextCard]
   );
 
-  const topCard = useMemo(
+  const firstCard = useMemo(
     () => ({
       opacity: 1,
       transform: [
@@ -92,7 +96,7 @@ const Discovery = () => {
     () => ({
       opacity: position.x.interpolate({
         inputRange: [-width / 2, 0, width / 2],
-        outputRange: [1, 0, 1],
+        outputRange: [1, 0.1, 1],
         extrapolate: 'clamp',
       }),
       transform: [
@@ -108,52 +112,42 @@ const Discovery = () => {
     [position.x, width]
   );
 
-  const getData = useCallback(async () => {
-    const [discover, error] = await movieApi.nowPlaying();
-
-    setDiscovery({ discover, error });
-  }, []);
-
-  useEffect(() => {
-    getData();
-  }, [getData]);
-
   return (
     <StyledContainer>
-      {discovery.discover.map((cover, index) => {
+      {movies.map((movie, index) => {
         if (index === topIndex) {
           return (
             <StyledCard
-              key={cover.id}
+              key={movie.id}
               height={height}
               zIndex={1}
-              style={topCard}
+              style={firstCard}
               {...panResponder.panHandlers}
             >
-              <Poster poster={cover.poster_path} borderRadius={16} />
+              <Poster poster={movie.poster_path} borderRadius={16} />
             </StyledCard>
           );
-        } else if (index === (topIndex + 1) % discovery.discover.length) {
+        } else if (index === (topIndex + 1) % movies.length) {
           return (
             <StyledCard
-              key={cover.id}
+              key={movie.id}
               height={height}
               zIndex={-index}
               style={secondCard}
               {...panResponder.panHandlers}
             >
-              <Poster poster={cover.poster_path} borderRadius={16} />
+              <Poster poster={movie.poster_path} borderRadius={16} />
             </StyledCard>
           );
         } else {
           return (
             <StyledCard
-              key={cover.id}
+              key={movie.id}
               height={height}
               zIndex={-index}
               {...panResponder.panHandlers}
             >
-              <Poster poster={cover.poster_path} borderRadius={16} />
+              <Poster poster={movie.poster_path} borderRadius={16} />
             </StyledCard>
           );
         }

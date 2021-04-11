@@ -12,7 +12,7 @@ const StyledSwiperContainer = styled.View<IStyledSwiperContainer>(
     width: '100%',
     height: height / 3,
     marginTop: 8,
-    marginBottom: 24,
+    marginBottom: 4,
   })
 );
 

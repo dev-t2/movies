@@ -41,8 +41,8 @@ const Vertical: FC<IVertical> = ({ id, poster, title }) => {
   const { width } = useWindowDimensions();
 
   const onPress = useCallback(() => {
-    navigation.navigate('Details', { id, title });
-  }, [navigation, id, title]);
+    navigation.navigate('Details', { id });
+  }, [navigation, id]);
 
   return (
     <Pressable onPress={onPress}>
