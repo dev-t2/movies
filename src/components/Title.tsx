@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 const StyledTitle = styled.Text({
   color: '#fff',
   fontWeight: 'bold',
-  fontSize: 16,
+  fontSize: 18,
   marginLeft: 16,
 });
 

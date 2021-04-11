@@ -75,7 +75,7 @@ const Movie = () => {
           ))}
         </HorizontalSwiper>
 
-        <HorizontalSlider title="Upcoming Movies">
+        <HorizontalSlider title="개봉 예정 영화">
           {movies.upcoming.map(movie => (
             <Vertical
               key={movie.id}
@@ -86,7 +86,7 @@ const Movie = () => {
           ))}
         </HorizontalSlider>
 
-        <List title="Popular Movies">
+        <List title="인기 영화">
           {movies.popular.map(movie => (
             <Horizontal
               key={movie.id}

@@ -10,9 +10,9 @@ interface IStyledContainer {
 }
 
 const StyledContainer = styled.View<IStyledContainer>(({ width }) => ({
-  width: width / 4,
+  width: width / 3.8,
   height: '100%',
-  marginRight: 8,
+  marginRight: 12,
 }));
 
 const StyledPosterContainer = styled.View({

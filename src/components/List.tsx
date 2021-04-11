@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import Title from './Title';
 
 const StyledTitleContainer = styled.View({
-  marginBottom: 16,
+  marginBottom: 12,
 });
 
 interface IList {

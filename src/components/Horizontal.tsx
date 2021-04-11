@@ -15,7 +15,7 @@ const StyledContainer = styled.View<IStyledContainer>(({ height }) => ({
   height: height / 5,
   flexDirection: 'row',
   marginLeft: 16,
-  marginBottom: 16,
+  marginBottom: 12,
 }));
 
 interface IStyledPosterContainer {
@@ -24,13 +24,14 @@ interface IStyledPosterContainer {
 
 const StyledPosterContainer = styled.View<IStyledPosterContainer>(
   ({ width }) => ({
-    width: width / 4,
+    width: width / 3.8,
     marginRight: 16,
   })
 );
 
 const StyledInfoContainer = styled.View({
-  width: '62%',
+  width: '60%',
+  paddingTop: 8,
 });
 
 const StyledTitle = styled.Text({
@@ -45,6 +46,7 @@ const StyledVoteContainer = styled.View({
 
 const StyledOverview = styled.Text({
   color: '#fff',
+  opacity: 0.8,
 });
 
 interface IHorizontal {

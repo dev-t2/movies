@@ -26,7 +26,7 @@ const StyledContents = styled.View({
 
 const StyledPosterContainer = styled.View({
   width: '36%',
-  height: '80%',
+  height: '72%',
   marginRight: 24,
 });
 
@@ -48,6 +48,7 @@ const StyledVoteContainer = styled.View({
 const StyledOverview = styled.Text({
   color: '#fff',
   fontWeight: 'bold',
+  opacity: 0.8,
   marginBottom: 12,
 });
 
