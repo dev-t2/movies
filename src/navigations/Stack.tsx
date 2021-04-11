@@ -19,6 +19,7 @@ const screenOptions: StackNavigationOptions = {
     fontWeight: 'bold',
   },
   headerTintColor: '#fff',
+  headerShown: false,
 };
 
 export default memo(() => {

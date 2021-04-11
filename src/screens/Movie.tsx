@@ -1,4 +1,5 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { movieApi } from '../lib/api';
 import {
@@ -59,7 +60,7 @@ const Movie = () => {
 
   return (
     <ScrollViewContainer isReady={movies.isReady} refreshFunction={getData}>
-      <>
+      <SafeAreaView>
         <HorizontalSwiper>
           {movies.nowPlaying.map(movie => (
             <Slide
@@ -97,7 +98,7 @@ const Movie = () => {
             />
           ))}
         </List>
-      </>
+      </SafeAreaView>
     </ScrollViewContainer>
   );
 };
