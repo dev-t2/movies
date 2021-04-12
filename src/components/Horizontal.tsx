@@ -31,7 +31,7 @@ const StyledPosterContainer = styled.View<IStyledPosterContainer>(
 
 const StyledInfoContainer = styled.View({
   width: '60%',
-  paddingTop: 8,
+  paddingTop: 4,
 });
 
 const StyledTitle = styled.Text({
