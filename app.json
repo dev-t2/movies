@@ -27,7 +27,7 @@
         "backgroundColor": "#000000"
       },
       "package": "com.devT2.T2Movie",
-      "permissions": ["CAMERA"],
+      "permissions": [],
       "versionCode": 1
     },
     "androidStatusBar": {
