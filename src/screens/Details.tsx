@@ -174,7 +174,11 @@ const Details = () => {
           <StyledContentsContainer>
             <StyledContentsTitle>장르</StyledContentsTitle>
             <StyledContents>
-              {details.genres.map(genre => `${genre?.name}    `)}
+              {details.genres.map((genre, index) =>
+                index === details.genres.length - 1
+                  ? `${genre?.name}`
+                  : `${genre?.name}    `
+              )}
             </StyledContents>
           </StyledContentsContainer>
         )}
@@ -189,10 +193,11 @@ const Details = () => {
         {details.videos.results.length > 0 && (
           <StyledContentsContainer>
             <StyledContentsTitle>관련 영상</StyledContentsTitle>
-            {details.videos.results.map(result => (
+            {details.videos.results.map((result, index) => (
               <OpenLink
                 key={result?.key}
                 text={result?.name}
+                isLast={index === details.videos.results.length - 1}
                 onPress={onPressYoutube(result?.key)}
               />
             ))}

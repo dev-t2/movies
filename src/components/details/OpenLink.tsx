@@ -2,12 +2,16 @@ import React, { FC, memo } from 'react';
 import { GestureResponderEvent } from 'react-native';
 import styled from 'styled-components/native';
 
-const StyledContainer = styled.Pressable({
+interface IStyledContainer {
+  isLast: boolean;
+}
+
+const StyledContainer = styled.Pressable<IStyledContainer>(({ isLast }) => ({
   flexDirection: 'row',
   alignItems: 'center',
   paddingHorizontal: 8,
-  marginBottom: 8,
-});
+  marginBottom: isLast ? 0 : 8,
+}));
 
 const StyledText = styled.Text({
   color: '#fff',
@@ -17,12 +21,13 @@ const StyledText = styled.Text({
 
 interface IOpenLink {
   text?: string;
+  isLast?: boolean;
   onPress: (event: GestureResponderEvent) => void;
 }
 
-const OpenLink: FC<IOpenLink> = ({ text = '', onPress }) => {
+const OpenLink: FC<IOpenLink> = ({ text = '', isLast = false, onPress }) => {
   return (
-    <StyledContainer onPress={onPress}>
+    <StyledContainer isLast={isLast} onPress={onPress}>
       <StyledText numberOfLines={1}>{text}</StyledText>
     </StyledContainer>
   );
