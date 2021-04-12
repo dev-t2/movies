@@ -39,6 +39,7 @@ module.exports = {
     'no-else-return': 0,
     'no-confusing-arrow': 0,
     'function-paren-newline': 0,
+    'global-require': 0,
     camelcase: 0,
   },
 };
