@@ -11,10 +11,7 @@ const App = () => {
   const [isReady, setIsReady] = useState(false);
 
   const startAsync = useCallback(async () => {
-    const images = cacheImages([
-      require('./assets/icon.png'),
-      require('./assets/splash.png'),
-    ]);
+    const images = cacheImages([]);
 
     const fonts = cacheFonts([Ionicons.font]);
 
